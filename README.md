@@ -1,46 +1,36 @@
 ## Takım ve Görev Dağılımı
 
-| Üye | İsim | Sorumluluk |
-|---|---|---|
-| 1 | Elif | Graph yapısı ve temel veri yapıları |
-| 2 | Niyazi | BFS, DFS ve doğrulama işlemleri |
-| 3 | Cafer | MST algoritması ve karmaşıklık analizi |
-| 4 | Evin | Arayüz ve grafik görselleştirme |
-| 5 | Azra | Entegrasyon, test, Docker, README ve rapor |
+1. **Elif** — Graph yapısı ve temel veri yapıları  
+   - Graph sınıfı
+   - Komşuluk listesi
+   - Komşuluk matrisi
+   - Kenar ve düğüm yapıları
 
-## Ayrıntılı Sorumluluklar
+2. **Niyazi** — BFS, DFS ve doğrulama işlemleri  
+   - Kuyruk yapısı
+   - Yığın yapısı
+   - BFS algoritması
+   - DFS algoritması
+   - Bağlantı kontrolleri
 
-### 1. Graph Yapısı ve Temel Veri Yapıları - Elif
-- Graph sınıfı
-- Komşuluk listesi
-- Komşuluk matrisi
-- Kenar ve düğüm yapıları
+3. **Cafer** — MST algoritması ve karmaşıklık analizi  
+   - Kruskal algoritması ve Union-Find yapısı
+   - Alternatif olarak Prim algoritması ve Min-Heap yapısı
+   - Karmaşıklık analizi
 
-### 2. BFS, DFS ve Doğrulama - Niyazi
-- Kuyruk yapısı
-- Yığın yapısı
-- BFS algoritması
-- DFS algoritması
-- Bağlantı kontrolleri
+4. **Evin** — Arayüz ve grafik görselleştirme  
+   - Düğüm ve kenar çizimi
+   - MST kenarlarını renklendirme
+   - Animasyon
+   - Kullanıcı etkileşimi
 
-### 3. MST Algoritması - Cafer
-- Kruskal algoritması ve Union-Find yapısı
-- Alternatif olarak Prim algoritması ve Min-Heap yapısı
-- Karmaşıklık analizi
-
-### 4. Arayüz ve Görselleştirme - Evin
-- Düğüm ve kenar çizimi
-- MST kenarlarını renklendirme
-- Animasyon
-- Kullanıcı etkileşimi
-
-### 5. Entegrasyon, Test, Docker, README ve Rapor - Azra
-- JSON test verisi oluşturma
-- Docker kurulumu
-- Repo organizasyonu
-- README güncellemeleri
-- Proje videosu
-- Son raporun hazırlanması
+5. **Azra** — Entegrasyon, test, Docker, README ve rapor  
+   - JSON test verisi oluşturma
+   - Docker kurulumu
+   - Repo organizasyonu
+   - README güncellemeleri
+   - Proje videosu
+   - Son raporun hazırlanması
 
 ## Ara Rapor Gelişmeleri
 
