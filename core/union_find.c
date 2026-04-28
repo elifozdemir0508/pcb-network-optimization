@@ -49,3 +49,34 @@ uint32_t union_find_find(UnionFind *uf, uint32_t x) {
 	return uf->parent[x];
 }
 
+bool union_find_union(UnionFind *uf, uint32_t a, uint32_t b) {
+	if (!uf || a >= uf->n || b >= uf->n) {
+		return false;
+	}
+
+	uint32_t root_a = union_find_find(uf, a);
+	uint32_t root_b = union_find_find(uf, b);
+
+	if (root_a == root_b) {
+		return false;
+	}
+
+	if (uf->rank[root_a] < uf->rank[root_b]) {
+		uf->parent[root_a] = root_b;
+	} else if (uf->rank[root_a] > uf->rank[root_b]) {
+		uf->parent[root_b] = root_a;
+	} else {
+		uf->parent[root_b] = root_a;
+		uf->rank[root_a] += 1;
+	}
+
+	return true;
+}
+
+bool union_find_connected(UnionFind *uf, uint32_t a, uint32_t b) {
+	if (!uf || a >= uf->n || b >= uf->n) {
+		return false;
+	}
+
+	return union_find_find(uf, a) == union_find_find(uf, b);
+}
