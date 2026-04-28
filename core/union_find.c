@@ -3,6 +3,7 @@
 #include <stdlib.h>
 
 UnionFind *union_find_create(uint32_t n) {
+    if (n == 0) return NULL;
     if (n > SIZE_MAX / sizeof(uint32_t)) {
         return NULL;
     }
