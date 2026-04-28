@@ -36,3 +36,16 @@ void union_find_destroy(UnionFind *uf) {
 	free(uf->rank);
 	free(uf);
 }
+
+uint32_t union_find_find(UnionFind *uf, uint32_t x) {
+	if (!uf || x >= uf->n) {
+		return x;
+	}
+
+	if (uf->parent[x] != x) {
+		uf->parent[x] = union_find_find(uf, uf->parent[x]);
+	}
+
+	return uf->parent[x];
+}
+
