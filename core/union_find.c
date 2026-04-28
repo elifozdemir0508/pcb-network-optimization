@@ -3,6 +3,10 @@
 #include <stdlib.h>
 
 UnionFind *union_find_create(uint32_t n) {
+    if (n > SIZE_MAX / sizeof(uint32_t)) {
+        return NULL;
+    }
+    
 	UnionFind *uf = (UnionFind *)malloc(sizeof(UnionFind));
 	if (!uf) {
 		return NULL;
