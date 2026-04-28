@@ -35,5 +35,9 @@
 *.layout
 *.depend
 
+# debug information files
+*.dwo
+
 # Mac system files
 .DS_Store
+
