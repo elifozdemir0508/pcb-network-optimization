@@ -1,53 +1,52 @@
-## Team and Task Distribution
+## Takım ve Görev Dağılımı
 
-| Member | Name | Responsibility |
+| Üye | İsim | Sorumluluk |
 |---|---|---|
-| 1 | Elif | Graph structure and core data structures |
-| 2 | Niyazi | Traversal algorithms and validation |
-| 3 | Cafer | MST algorithm and complexity analysis |
-| 4 | Evin | Interface and graph visualization |
-| 5 | Azra | Integration, testing, Docker, README, and report |
+| 1 | Elif | Graph yapısı ve temel veri yapıları |
+| 2 | Niyazi | BFS, DFS ve doğrulama işlemleri |
+| 3 | Cafer | MST algoritması ve karmaşıklık analizi |
+| 4 | Evin | Arayüz ve grafik görselleştirme |
+| 5 | Azra | Entegrasyon, test, Docker, README ve rapor |
 
-## Detailed Responsibilities
+## Ayrıntılı Sorumluluklar
 
-### 1. Graph and Core Data Structures - Elif
-- Graph class
-- Adjacency list
-- Adjacency matrix
-- Edge and node structures
+### 1. Graph Yapısı ve Temel Veri Yapıları - Elif
+- Graph sınıfı
+- Komşuluk listesi
+- Komşuluk matrisi
+- Kenar ve düğüm yapıları
 
-### 2. Traversal and Validation - Niyazi
-- Queue structure
-- Stack structure
-- BFS algorithm
-- DFS algorithm
-- Connectedness checks
+### 2. BFS, DFS ve Doğrulama - Niyazi
+- Kuyruk yapısı
+- Yığın yapısı
+- BFS algoritması
+- DFS algoritması
+- Bağlantı kontrolleri
 
-### 3. MST Algorithm - Cafer
-- Kruskal algorithm with Union-Find  
-  or  
-- Prim algorithm with Min-Heap
-- Complexity analysis
+### 3. MST Algoritması - Cafer
+- Kruskal algoritması ve Union-Find yapısı
+- Alternatif olarak Prim algoritması ve Min-Heap yapısı
+- Karmaşıklık analizi
 
-### 4. Interface and Visualization - Evin
-- Drawing nodes and edges
-- Coloring MST edges
-- Animation
-- User interaction
+### 4. Arayüz ve Görselleştirme - Evin
+- Düğüm ve kenar çizimi
+- MST kenarlarını renklendirme
+- Animasyon
+- Kullanıcı etkileşimi
 
-### 5. Integration, Testing, Docker, README, and Report - Azra
-- JSON test data generation
-- Docker setup
-- Repository organization
-- README updates
-- Project video
-- Final report preparation
+### 5. Entegrasyon, Test, Docker, README ve Rapor - Azra
+- JSON test verisi oluşturma
+- Docker kurulumu
+- Repo organizasyonu
+- README güncellemeleri
+- Proje videosu
+- Son raporun hazırlanması
 
-## Interim Report Progress
+## Ara Rapor Gelişmeleri
 
-- GitHub repository was created.
-- The project topic and scope were defined.
-- Team responsibilities were assigned.
-- Task branches will be used for individual contributions.
-- Issues will be used to track tasks, bugs, and findings.
-- Pull requests will be created before merging changes into the main/master branch.
+- GitHub deposu oluşturuldu.
+- Projenin konusu ve kapsamı belirlendi.
+- Takım sorumlulukları belirlendi.
+- Bireysel katkılar için görev branch’leri oluşturuldu.
+- Issue kısmı görevleri, hataları ve bulguları takip etmek için kullanılacaktır.
+- Değişiklikler ana/master dalına birleştirilmeden önce pull request süreci kullanılacaktır.
