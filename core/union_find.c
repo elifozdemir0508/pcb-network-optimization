@@ -6,7 +6,7 @@ UnionFind *union_find_create(uint32_t n) {
     if (n > SIZE_MAX / sizeof(uint32_t)) {
         return NULL;
     }
-    
+
 	UnionFind *uf = (UnionFind *)malloc(sizeof(UnionFind));
 	if (!uf) {
 		return NULL;
@@ -43,7 +43,7 @@ void union_find_destroy(UnionFind *uf) {
 
 uint32_t union_find_find(UnionFind *uf, uint32_t x) {
 	if (!uf || x >= uf->n) {
-		return x;
+		return UINT32_MAX;
 	}
 
 	if (uf->parent[x] != x) {
