@@ -1,94 +1,93 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include"Queue.h"
 
-//kuyruktaki dugumlerin tasarimi
-struct node{
-    int data;
-    struct node* ileri;
-};
-typedef struct node Node;
-typedef Node* Nodeptr;
+
 
 //Bir Dügüm olusturma
-Nodeptr newNode(int veri){
-    Nodeptr node = (Nodeptr)malloc(sizeof(Node));
+nodeptr newNode(int veri){
+    nodeptr node = (nodeptr)malloc(sizeof(Node));
     node->data=veri;
-    node->ileri=NULL;
+    node->next=NULL;
     return node;
 }
 
-//kuyruk tasarimi
-struct kuyruk{
-    Nodeptr bas;
-    Nodeptr son;
-};
-typedef struct kuyruk Kuyruk;
-typedef Kuyruk* Kuyrukptr;
 
 //Bir kuyruk olusturma
-Kuyrukptr newQueue(){
-    Kuyrukptr k=(Kuyrukptr)malloc(sizeof(Kuyruk));
+kuyrukptr newQueue(){
+    kuyrukptr k=(kuyrukptr)malloc(sizeof(Kuyruk));
     k->bas=NULL;
     k->son=NULL;
     return k;
 }
 
 //kuyruk eleman ekleme
-void enqueue(Kuyrukptr k, Nodeptr node){
+void  enqueue(kuyrukptr k, int veri){
+    nodeptr node = newNode(veri);
     if(k->bas==NULL)
-        k->bas=node;
+        k->bas= node;
     else
-        k->son->ileri=node;
-    k->son=node;
-}
+        k->son->next=node;
+    k->son= node;
+   }
 
-int isEmpty(Kuyrukptr k){
+int isEmpty(kuyrukptr k){
     return (k->bas == NULL);
 }
 
 //kuyruktan eleman silme
-Nodeptr dequeue(Kuyrukptr k){
-    Nodeptr temp=k->bas;
-    if(isEmpty(k)){
-        k->bas=k->bas->ileri;
-        if(k->bas==NULL)
-            k->son=NULL;
+int dequeue(kuyrukptr k) {
+    if(isEmpty(k)) {
+        printf("Hata!:Kuyruk boş\n");
+        return -1;
     }
-    return temp;
-}
-void freeQueue(Kuyrukptr k) {
-    while (!isEmpty(k)) {
-        dequeue(k);
+    nodeptr temp = k->bas;
+    int cikan_veri = temp->data; // Çıkan Pin ID'si
+
+    k->bas = k->bas->next;
+    if(k->bas == NULL) {
+        k->son = NULL;
     }
-    free(k);
+    free(temp);
+    return cikan_veri;
 }
 
-//kuyruk eleman sayisini bulma
-int size(Kuyrukptr k){
-    Nodeptr temp=k->bas;
-    int sayac=0;
-    while(temp){
-        sayac++;
-        temp=temp->ileri;
+    void freeQueue(kuyrukptr k) {
+        while (!isEmpty(k)) {
+            dequeue(k);
+        }
+        free(k);
     }
-    return sayac;
-}
-//kuyruk yazdir
-void show(Kuyrukptr k){
-    Nodeptr temp = k->bas;
-    while(temp){
-        printf("%d --> ", temp->data);
-        temp=temp->ileri;
-    }
-}
 
-int main()
+    //kuyruk eleman sayisini bulma
+    int size(kuyrukptr k){
+        nodeptr temp=k->bas;
+        int sayac=0;
+        while(temp){
+            sayac++;
+            temp=temp->next;
+        }
+        return sayac;
+    }
+    //kuyruk yazdir
+    void show(kuyrukptr k){
+        nodeptr temp = k->bas;
+        while(temp){
+            printf("%d --> ", temp->data);
+            temp=temp->next;
+        }
+    printf("\n");
+    }
+
+int  main()
 {
-    Kuyrukptr k=newQueue();
-    enqueue(k,newNode(10));
-    enqueue(k,newNode(20));
-    enqueue(k,newNode(30));
-    enqueue(k,newNode(40));
-    enqueue(k,newNode(50));
-    show(k);
+    kuyrukptr myQueue = newQueue();
+    enqueue(myQueue, 10);
+    enqueue(myQueue, 20);
+    enqueue(myQueue, 30);
+    enqueue(myQueue, 40);
+    show(myQueue);
+
 }
+
+
