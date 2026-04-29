@@ -1,6 +1,6 @@
 # PCB Ağ Optimizasyonu
 
-Bu proje, Veri Yapıları dersi kapsamında hazırlanmıştır. Projenin amacı, PCB üzerindeki bağlantı noktalarını bir graf yapısı olarak modellemek ve bağlantı maliyetini en aza indirecek şekilde en uygun bağlantı ağını oluşturmaktır.
+Bu proje, Veri Yapıları dersi kapsamında hazırlanmıştır. Projenin amacı, PCB üzerindeki bağlantı noktalarını bir graf yapısı olarak modellemek ve bağlantı maliyetini en aza indirecek en uygun bağlantı ağını oluşturmaktır.
 
 Projede graf veri yapısı, BFS, DFS, Kruskal algoritması ve Union-Find veri yapısı kullanılmaktadır. PCB üzerindeki bağlantı noktaları düğüm, bu noktalar arasındaki bağlantılar ise kenar olarak temsil edilmektedir. Kenar ağırlıkları bağlantı maliyetini göstermektedir.
 
@@ -23,6 +23,7 @@ Proje kapsamında:
 - Kruskal algoritması ile Minimum Spanning Tree bulunur.
 - Union-Find veri yapısı ile döngü oluşumu kontrol edilir.
 - Toplam MST maliyeti hesaplanır.
+- Sonuçlar kullanıcıya anlaşılır şekilde gösterilir.
 
 ---
 
@@ -65,7 +66,9 @@ Proje kapsamında yapılacak temel işlemler şunlardır:
 
 ## Takım Sorumlulukları
 
-Proje ekip üyeleri tarafından farklı branchler üzerinden geliştirilmektedir. Her ekip üyesi kendi görev alanındaki kodları kendi branchinde hazırlayıp ana geliştirme dalına eklemektedir.
+Proje ekip üyeleri tarafından farklı branchler üzerinden geliştirilmektedir. Her ekip üyesi kendi görev alanındaki kodları kendi branchinde hazırlamakta ve daha sonra ana geliştirme dalına eklemektedir.
+
+---
 
 ### 1. Graf Çekirdeği
 
@@ -177,6 +180,87 @@ pcb-network-optimization/
 │
 ├── .gitignore
 └── README.md
+```
+
+---
+
+## Derleme ve Çalıştırma
+
+Proje C dili ile geliştirilmektedir. Dosyalar tamamlandığında aşağıdaki komut ile derlenebilir:
+
+```bash
+gcc main.c graph.c bfs_dfs.c kruskal.c -o pcb_network
+```
+
+Linux veya macOS ortamında çalıştırmak için:
+
+```bash
+./pcb_network
+```
+
+Windows ortamında çalıştırmak için:
+
+```bash
+pcb_network.exe
+```
+
+---
+
+## GitHub Kullanımı
+
+Proje geliştirme sürecinde GitHub kullanılmaktadır. Ekip üyeleri kendi branchleri üzerinde çalışmaktadır.
+
+Kullanılan temel GitHub adımları:
+
+- Repository oluşturuldu.
+- Proje klasör yapısı hazırlandı.
+- Görev alanlarına göre branchler açıldı.
+- Her ekip üyesi kendi görev alanında geliştirme yaptı.
+- Yapılan değişiklikler commit edildi.
+- Branchlerden ana geliştirme dalına pull request açıldı.
+- README dosyası güncellendi.
+- Ara rapor için GitHub bağlantısı hazır hale getirildi.
+
+---
+
+## Ara Rapor Durumu
+
+Ara rapor aşamasında proje iskeleti oluşturulmuştur. GitHub reposu hazırlanmış, klasör yapısı kurulmuş, görev paylaşımı yapılmış ve ekip üyeleri kendi branchleri üzerinde çalışmaya başlamıştır.
+
+Bu aşamada amaç, projenin temel yapısını oluşturmak ve ilerleyen süreçte algoritmaların tamamlanarak entegre edilmesini sağlamaktır.
+
+---
+
+## Proje Durumu
+
+Şu anda proje geliştirme aşamasındadır.
+
+Tamamlanan işlemler:
+
+- GitHub reposu oluşturuldu.
+- README dosyası hazırlandı.
+- Klasör yapısı oluşturuldu.
+- Görev paylaşımı yapıldı.
+- Branch yapısı oluşturuldu.
+- İlk commitler yapıldı.
+
+Devam eden işlemler:
+
+- Graf çekirdeğinin tamamlanması
+- BFS ve DFS algoritmalarının tamamlanması
+- Kruskal algoritmasının tamamlanması
+- Union-Find veri yapısının tamamlanması
+- Test verilerinin hazırlanması
+- Kodların birleştirilmesi
+- Son çıktıların düzenlenmesi
+
+---
+
+## Sonuç
+
+Bu proje ile graf veri yapısının gerçek bir problem üzerinde uygulanması hedeflenmektedir. PCB bağlantı noktaları graf olarak modellenmekte ve bağlantı maliyetini en aza indirmek için Kruskal algoritması ile Minimum Spanning Tree hesaplanmaktadır.
+
+Proje, Veri Yapıları dersinde öğrenilen graf, BFS, DFS, Union-Find ve MST konularının birlikte kullanıldığı uygulamalı bir çalışmadır.
 
 ## How to Compile
 
