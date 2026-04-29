@@ -1,87 +1,182 @@
-# PCB Network Optimization
+# PCB Ağ Optimizasyonu
 
-This project models PCB components as a weighted graph and finds the Minimum Spanning Tree (MST) with the minimum total connection cost.
+Bu proje, Veri Yapıları dersi kapsamında hazırlanmıştır. Projenin amacı, PCB üzerindeki bağlantı noktalarını bir graf yapısı olarak modellemek ve bağlantı maliyetini en aza indirecek şekilde en uygun bağlantı ağını oluşturmaktır.
 
-The project is implemented in C and uses graph algorithms such as BFS, DFS, Kruskal's algorithm, and Union-Find.
+Projede graf veri yapısı, BFS, DFS, Kruskal algoritması ve Union-Find veri yapısı kullanılmaktadır. PCB üzerindeki bağlantı noktaları düğüm, bu noktalar arasındaki bağlantılar ise kenar olarak temsil edilmektedir. Kenar ağırlıkları bağlantı maliyetini göstermektedir.
 
-## Project Scope
+---
 
-- Graph representation
-- Adjacency list
-- Adjacency matrix
-- BFS traversal
-- DFS traversal
-- Connected graph check
-- Kruskal MST algorithm
-- Union-Find data structure
-- Cycle prevention
-- Total MST cost calculation
-- Basic graph visualization/output
-- Dynamic node and edge updates
+## Projenin Amacı
 
-## Team Responsibilities
+Bu projede temel hedef, PCB üzerindeki bağlantı noktaları arasında en düşük toplam maliyetli bağlantı ağını oluşturmaktır. Bunun için Minimum Spanning Tree yani Minimum Yayılan Ağaç yaklaşımı kullanılmaktadır.
 
-### feature/graph-core
+Proje kapsamında:
 
-This branch is responsible for the core graph structure.
+- Graf yapısı oluşturulur.
+- Düğümler ve kenarlar tanımlanır.
+- Kenar ağırlıkları saklanır.
+- Komşuluk listesi oluşturulur.
+- Komşuluk matrisi oluşturulur.
+- BFS algoritması ile graf üzerinde genişlik öncelikli arama yapılır.
+- DFS algoritması ile graf üzerinde derinlik öncelikli arama yapılır.
+- Grafın bağlantılı olup olmadığı kontrol edilir.
+- Kruskal algoritması ile Minimum Spanning Tree bulunur.
+- Union-Find veri yapısı ile döngü oluşumu kontrol edilir.
+- Toplam MST maliyeti hesaplanır.
 
-Tasks:
+---
 
-- Define Graph, Node, and Edge structs
-- Implement adjacency list
-- Implement adjacency matrix
-- Add node function
-- Add edge function
-- Store edge weights
+## Kullanılan Veri Yapıları ve Algoritmalar
 
-### feature/bfs-dfs
+Projede aşağıdaki veri yapıları ve algoritmalar kullanılmaktadır:
 
-This branch is responsible for graph traversal algorithms.
+- Graf veri yapısı
+- Komşuluk listesi
+- Komşuluk matrisi
+- Kuyruk veri yapısı
+- Yığın / özyinelemeli DFS mantığı
+- BFS algoritması
+- DFS algoritması
+- Kruskal algoritması
+- Union-Find veri yapısı
+- Minimum Spanning Tree
 
-Tasks:
+---
 
-- Implement Queue structure for BFS
-- Implement Stack structure or recursive logic for DFS
-- Implement BFS algorithm
-- Implement DFS algorithm
-- Check whether the graph is connected
+## Proje Kapsamı
 
-### feature/kruskal-unionfind
+Bu proje, PCB bağlantı ağının graf olarak modellenmesini ve bu graf üzerinde temel veri yapıları algoritmalarının uygulanmasını kapsamaktadır.
 
-This branch is responsible for finding the Minimum Spanning Tree.
+Proje kapsamında yapılacak temel işlemler şunlardır:
 
-Tasks:
+- PCB bağlantı noktalarını düğüm olarak tanımlama
+- Bağlantıları kenar olarak tanımlama
+- Kenarlara ağırlık değeri verme
+- Grafı komşuluk listesi ile gösterme
+- Grafı komşuluk matrisi ile gösterme
+- BFS geçişini uygulama
+- DFS geçişini uygulama
+- Grafın bağlantılı olup olmadığını kontrol etme
+- Kruskal algoritması ile MST oluşturma
+- Toplam MST maliyetini hesaplama
+- Sonuçları kullanıcıya anlaşılır şekilde gösterme
 
-- Implement Union-Find data structure
-- Implement Kruskal's algorithm
-- Sort edges by weight
-- Prevent cycles
-- Calculate total MST cost
+---
 
-### feature/ui-visualization
+## Takım Sorumlulukları
 
-This branch is responsible for displaying the graph and results.
+Proje ekip üyeleri tarafından farklı branchler üzerinden geliştirilmektedir. Her ekip üyesi kendi görev alanındaki kodları kendi branchinde hazırlayıp ana geliştirme dalına eklemektedir.
 
-Tasks:
+### 1. Graf Çekirdeği
 
-- Print adjacency list
-- Print adjacency matrix
-- Display BFS and DFS results
-- Display MST edges
-- Display total MST cost
-- Highlight MST result in output if possible
+Bu bölüm, projenin temel graf yapısından sorumludur.
 
-### feature/docs-integration
+Görevler:
 
-This branch is responsible for documentation and project integration.
+- Graf veri yapısını oluşturmak
+- Düğüm yapısını tanımlamak
+- Kenar yapısını tanımlamak
+- Düğüm ekleme fonksiyonunu yazmak
+- Kenar ekleme fonksiyonunu yazmak
+- Kenar ağırlıklarını saklamak
+- Komşuluk listesi yapısını oluşturmak
+- Komşuluk matrisi yapısını oluşturmak
 
-Tasks:
+---
 
-- Update README.md
-- Prepare sample test data
-- Write integration notes
-- Prepare report skeleton
-- Check that all modules work together
+### 2. BFS ve DFS Algoritmaları
+
+Bu bölüm, graf üzerinde arama ve gezinme algoritmalarından sorumludur.
+
+Görevler:
+
+- BFS algoritmasını uygulamak
+- BFS için kuyruk mantığını kullanmak
+- DFS algoritmasını uygulamak
+- DFS için yığın veya özyinelemeli yapı kullanmak
+- Grafın bağlantılı olup olmadığını kontrol etmek
+- BFS ve DFS sonuçlarını ekrana yazdırmak
+
+---
+
+### 3. Kruskal ve Union-Find
+
+Bu bölüm, Minimum Spanning Tree hesabından sorumludur.
+
+Görevler:
+
+- Kenarları ağırlıklarına göre sıralamak
+- Union-Find veri yapısını oluşturmak
+- Find işlemini uygulamak
+- Union işlemini uygulamak
+- Döngü oluşumunu engellemek
+- Kruskal algoritmasını uygulamak
+- MST kenarlarını belirlemek
+- Toplam MST maliyetini hesaplamak
+
+---
+
+### 4. Kullanıcı Arayüzü ve Çıktı Gösterimi
+
+Bu bölüm, program çıktılarının kullanıcıya anlaşılır şekilde gösterilmesinden sorumludur.
+
+Görevler:
+
+- Komşuluk listesini ekrana yazdırmak
+- Komşuluk matrisini ekrana yazdırmak
+- BFS sonucunu göstermek
+- DFS sonucunu göstermek
+- MST kenarlarını göstermek
+- Toplam MST maliyetini göstermek
+- Program çıktısını düzenli ve okunabilir hale getirmek
+
+---
+
+### 5. Belge ve Entegrasyon
+
+Bu bölüm, proje dokümantasyonu ve parçaların birleştirilmesinden sorumludur.
+
+Görevler:
+
+- README.md dosyasını güncellemek
+- Proje klasör yapısını düzenlemek
+- Örnek test verilerini hazırlamak
+- Kodların birlikte çalışmasını kontrol etmek
+- Entegrasyon notlarını hazırlamak
+- Ara rapor için gerekli GitHub bağlantısını hazırlamak
+
+---
+
+## Klasör Yapısı
+
+Projede kullanılan temel klasörler aşağıdaki gibidir:
+
+```txt
+pcb-network-optimization/
+│
+├── algoritmalar/
+│   └── Algoritma kodları
+│
+├── cekirdek/
+│   └── Graf veri yapısı ve temel fonksiyonlar
+│
+├── veri/
+│   └── Örnek giriş verileri
+│
+├── belgeler/
+│   └── Rapor ve açıklama dosyaları
+│
+├── testler/
+│   └── Test dosyaları
+│
+├── gecisler/
+│   └── BFS ve DFS geçiş işlemleri
+│
+├── kullanici-arayuzu/
+│   └── Çıktı ve kullanıcıya gösterim işlemleri
+│
+├── .gitignore
+└── README.md
 
 ## How to Compile
 
