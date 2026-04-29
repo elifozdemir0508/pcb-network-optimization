@@ -1,35 +1,34 @@
 # PCB Ağ Optimizasyonu
 
-Bu proje, Veri Yapıları dersi kapsamında hazırlanmıştır. Projenin amacı, PCB üzerindeki bağlantı noktalarını bir graf yapısı olarak modellemek ve bağlantı maliyetini en aza indirecek en uygun bağlantı ağını oluşturmaktır.
+Bu proje, Veri Yapıları dersi kapsamında hazırlanmıştır. Projenin amacı, PCB üzerindeki bağlantı noktalarını bir graf yapısı olarak modellemek ve bağlantı maliyetini en aza indirecek uygun bağlantı ağını oluşturmaktır.
 
-Projede graf veri yapısı, BFS, DFS, Kruskal algoritması ve Union-Find veri yapısı kullanılmaktadır. PCB üzerindeki bağlantı noktaları düğüm, bu noktalar arasındaki bağlantılar ise kenar olarak temsil edilmektedir. Kenar ağırlıkları bağlantı maliyetini göstermektedir.
+Projede graf veri yapısı, BFS, DFS, Kruskal algoritması, Union-Find veri yapısı ve temel görselleştirme yaklaşımları kullanılacaktır. PCB üzerindeki bağlantı noktaları düğüm, bu noktalar arasındaki bağlantılar ise kenar olarak temsil edilmektedir. Kenar ağırlıkları bağlantı maliyetini göstermektedir.
 
 ---
 
 ## Projenin Amacı
 
-Bu projede temel hedef, PCB üzerindeki bağlantı noktaları arasında en düşük toplam maliyetli bağlantı ağını oluşturmaktır. Bunun için Minimum Spanning Tree yani Minimum Yayılan Ağaç yaklaşımı kullanılmaktadır.
+Bu projede temel hedef, PCB üzerindeki bağlantı noktaları arasında en düşük toplam maliyetli bağlantı ağını oluşturmaktır. Bunun için Minimum Spanning Tree yani Minimum Yayılan Ağaç yaklaşımı kullanılacaktır.
 
 Proje kapsamında:
 
-- Graf yapısı oluşturulur.
-- Düğümler ve kenarlar tanımlanır.
-- Kenar ağırlıkları saklanır.
-- Komşuluk listesi oluşturulur.
-- Komşuluk matrisi oluşturulur.
-- BFS algoritması ile graf üzerinde genişlik öncelikli arama yapılır.
-- DFS algoritması ile graf üzerinde derinlik öncelikli arama yapılır.
-- Grafın bağlantılı olup olmadığı kontrol edilir.
-- Kruskal algoritması ile Minimum Spanning Tree bulunur.
-- Union-Find veri yapısı ile döngü oluşumu kontrol edilir.
-- Toplam MST maliyeti hesaplanır.
-- Sonuçlar kullanıcıya anlaşılır şekilde gösterilir.
+- PCB bağlantı noktaları düğüm olarak tanımlanacaktır.
+- Bağlantılar kenar olarak tanımlanacaktır.
+- Kenarlara ağırlık değeri atanacaktır.
+- Graf komşuluk listesi ve komşuluk matrisi ile temsil edilecektir.
+- BFS algoritması ile genişlik öncelikli arama yapılacaktır.
+- DFS algoritması ile derinlik öncelikli arama yapılacaktır.
+- Grafın bağlantılı olup olmadığı kontrol edilecektir.
+- Kruskal algoritması ile Minimum Spanning Tree oluşturulacaktır.
+- Union-Find veri yapısı ile döngü oluşumu kontrol edilecektir.
+- Toplam MST maliyeti hesaplanacaktır.
+- Sonuçlar kullanıcıya anlaşılır şekilde gösterilecektir.
 
 ---
 
-## Kullanılan Veri Yapıları ve Algoritmalar
+## Kullanılacak Veri Yapıları ve Algoritmalar
 
-Projede aşağıdaki veri yapıları ve algoritmalar kullanılmaktadır:
+Projede aşağıdaki veri yapıları ve algoritmalar kullanılacaktır:
 
 - Graf veri yapısı
 - Komşuluk listesi
@@ -41,130 +40,109 @@ Projede aşağıdaki veri yapıları ve algoritmalar kullanılmaktadır:
 - Kruskal algoritması
 - Union-Find veri yapısı
 - Minimum Spanning Tree
+- Alternatif olarak Prim algoritması
+- Min-Heap yapısı
+- JSON tabanlı test verileri
+- Grafiksel görselleştirme
 
 ---
 
-## Proje Kapsamı
+## Takım ve Görev Dağılımı
 
-Bu proje, PCB bağlantı ağının graf olarak modellenmesini ve bu graf üzerinde temel veri yapıları algoritmalarının uygulanmasını kapsamaktadır.
+### Elif — Graf Yapısı ve Temel Veri Yapıları
 
-Proje kapsamında yapılacak temel işlemler şunlardır:
-
-- PCB bağlantı noktalarını düğüm olarak tanımlama
-- Bağlantıları kenar olarak tanımlama
-- Kenarlara ağırlık değeri verme
-- Grafı komşuluk listesi ile gösterme
-- Grafı komşuluk matrisi ile gösterme
-- BFS geçişini uygulama
-- DFS geçişini uygulama
-- Grafın bağlantılı olup olmadığını kontrol etme
-- Kruskal algoritması ile MST oluşturma
-- Toplam MST maliyetini hesaplama
-- Sonuçları kullanıcıya anlaşılır şekilde gösterme
-
----
-
-## Takım Sorumlulukları
-
-Proje ekip üyeleri tarafından farklı branchler üzerinden geliştirilmektedir. Her ekip üyesi kendi görev alanındaki kodları kendi branchinde hazırlamakta ve daha sonra ana geliştirme dalına eklemektedir.
-
----
-
-### 1. Graf Çekirdeği
-
-Bu bölüm, projenin temel graf yapısından sorumludur.
+Elif, projenin temel graf yapısından ve grafı temsil edecek veri yapılarından sorumludur.
 
 Görevler:
 
-- Graf veri yapısını oluşturmak
-- Düğüm yapısını tanımlamak
-- Kenar yapısını tanımlamak
-- Düğüm ekleme fonksiyonunu yazmak
-- Kenar ekleme fonksiyonunu yazmak
-- Kenar ağırlıklarını saklamak
-- Komşuluk listesi yapısını oluşturmak
-- Komşuluk matrisi yapısını oluşturmak
+- Graf veri yapısının oluşturulması
+- Düğüm yapısının tanımlanması
+- Kenar yapısının tanımlanması
+- Komşuluk listesi yapısının hazırlanması
+- Komşuluk matrisi yapısının hazırlanması
+- Kenar ağırlıklarının saklanması
+- Graf yapısının diğer algoritmalarla uyumlu hale getirilmesi
 
 ---
 
-### 2. BFS ve DFS Algoritmaları
+### Niyazi — BFS, DFS ve Bağlantı Kontrolü
 
-Bu bölüm, graf üzerinde arama ve gezinme algoritmalarından sorumludur.
+Niyazi, graf üzerinde arama ve gezinme algoritmalarından sorumludur.
 
 Görevler:
 
-- BFS algoritmasını uygulamak
-- BFS için kuyruk mantığını kullanmak
-- DFS algoritmasını uygulamak
-- DFS için yığın veya özyinelemeli yapı kullanmak
-- Grafın bağlantılı olup olmadığını kontrol etmek
-- BFS ve DFS sonuçlarını ekrana yazdırmak
+- Kuyruk veri yapısının kullanılması
+- Yığın veya özyinelemeli DFS yapısının kullanılması
+- BFS algoritmasının uygulanması
+- DFS algoritmasının uygulanması
+- Grafın bağlantılı olup olmadığının kontrol edilmesi
+- BFS ve DFS sonuçlarının ekrana yazdırılması
 
 ---
 
-### 3. Kruskal ve Union-Find
+### Cafer — MST Algoritmaları ve Karmaşıklık Analizi
 
-Bu bölüm, Minimum Spanning Tree hesabından sorumludur.
+Cafer, Minimum Spanning Tree algoritmalarından ve algoritma analizinden sorumludur.
 
 Görevler:
 
-- Kenarları ağırlıklarına göre sıralamak
-- Union-Find veri yapısını oluşturmak
-- Find işlemini uygulamak
-- Union işlemini uygulamak
-- Döngü oluşumunu engellemek
-- Kruskal algoritmasını uygulamak
-- MST kenarlarını belirlemek
-- Toplam MST maliyetini hesaplamak
+- Kruskal algoritmasının uygulanması
+- Union-Find veri yapısının hazırlanması
+- Find işleminin uygulanması
+- Union işleminin uygulanması
+- Döngü oluşumunun engellenmesi
+- Alternatif olarak Prim algoritmasının incelenmesi
+- Min-Heap yapısının araştırılması
+- Algoritmaların zaman karmaşıklığı analizinin yapılması
 
 ---
 
-### 4. Kullanıcı Arayüzü ve Çıktı Gösterimi
+### Evin — Arayüz ve Grafiksel Görselleştirme
 
-Bu bölüm, program çıktılarının kullanıcıya anlaşılır şekilde gösterilmesinden sorumludur.
+Evin, proje çıktılarının kullanıcıya anlaşılır şekilde gösterilmesinden ve grafiksel görselleştirmeden sorumludur.
 
 Görevler:
 
-- Komşuluk listesini ekrana yazdırmak
-- Komşuluk matrisini ekrana yazdırmak
-- BFS sonucunu göstermek
-- DFS sonucunu göstermek
-- MST kenarlarını göstermek
-- Toplam MST maliyetini göstermek
-- Program çıktısını düzenli ve okunabilir hale getirmek
+- Düğüm ve kenar çizimlerinin hazırlanması
+- Grafın görsel olarak gösterilmesi
+- MST kenarlarının renklendirilmesi
+- Algoritma adımlarının görselleştirilmesi
+- Animasyon veya adım adım gösterim mantığının hazırlanması
+- Kullanıcı etkileşiminin düzenlenmesi
 
 ---
 
-### 5. Belge ve Entegrasyon
+### Azra — Entegrasyon, Test, Docker, README ve Rapor
 
-Bu bölüm, proje dokümantasyonu ve parçaların birleştirilmesinden sorumludur.
+Azra, projenin birleştirilmesi, test edilmesi ve dokümantasyonundan sorumludur.
 
 Görevler:
 
-- README.md dosyasını güncellemek
-- Proje klasör yapısını düzenlemek
-- Örnek test verilerini hazırlamak
-- Kodların birlikte çalışmasını kontrol etmek
-- Entegrasyon notlarını hazırlamak
-- Ara rapor için gerekli GitHub bağlantısını hazırlamak
+- JSON test verilerinin hazırlanması ve doğrulanması
+- Kodların birlikte çalışmasının kontrol edilmesi
+- Docker kurulumunun hazırlanması
+- Repository düzeninin kontrol edilmesi
+- README dosyasının güncellenmesi
+- Proje raporunun hazırlanması
+- Proje videosu için gerekli içeriklerin hazırlanması
 
 ---
 
-## Klasör Yapısı
+## Proje Klasör Yapısı
 
-Projede kullanılan temel klasörler aşağıdaki gibidir:
+Projede kullanılacak temel klasör yapısı aşağıdaki gibidir:
 
 ```txt
 pcb-network-optimization/
 │
 ├── algoritmalar/
-│   └── Algoritma kodları
+│   └── BFS, DFS, Kruskal, Prim ve diğer algoritmalar
 │
 ├── cekirdek/
 │   └── Graf veri yapısı ve temel fonksiyonlar
 │
 ├── veri/
-│   └── Örnek giriş verileri
+│   └── Örnek giriş ve JSON test verileri
 │
 ├── belgeler/
 │   └── Rapor ve açıklama dosyaları
@@ -176,7 +154,7 @@ pcb-network-optimization/
 │   └── BFS ve DFS geçiş işlemleri
 │
 ├── kullanici-arayuzu/
-│   └── Çıktı ve kullanıcıya gösterim işlemleri
+│   └── Çıktı ve görselleştirme işlemleri
 │
 ├── .gitignore
 └── README.md
@@ -184,9 +162,44 @@ pcb-network-optimization/
 
 ---
 
+## GitHub Kullanımı
+
+Proje geliştirme sürecinde GitHub kullanılmaktadır. Ekip üyeleri kendi görev alanlarına göre farklı branchler üzerinde çalışacaktır.
+
+Kullanılan temel GitHub adımları:
+
+- Repository oluşturuldu.
+- Projenin konusu ve kapsamı belirlendi.
+- Proje klasör yapısı hazırlandı.
+- Takım üyelerinin sorumlulukları belirlendi.
+- Görev branchleri oluşturuldu.
+- Her ekip üyesinin kendi görev alanında çalışması planlandı.
+- Issue bölümü yapılacak işler, hatalar ve geliştirme adımlarını takip etmek için kullanılacaktır.
+- Değişiklikler main/master branchine eklenmeden önce pull request ile kontrol edilecektir.
+- README dosyası güncellendi.
+- Ara rapor için GitHub bağlantısı hazır hale getirildi.
+
+---
+
+## Ara Rapor Gelişmeleri
+
+Ara rapor aşamasında aşağıdaki çalışmalar yapılmıştır:
+
+- GitHub reposu oluşturuldu.
+- Projenin konusu ve kapsamı belirlendi.
+- Takım üyeleri arasında görev dağılımı yapıldı.
+- Proje klasör yapısı oluşturuldu.
+- Görev branchleri oluşturuldu.
+- README dosyası düzenlendi.
+- Her ekip üyesinin kendi görev alanında çalışma yapması planlandı.
+- Pull request kullanımı ile ekip çalışmasının takip edilmesi hedeflendi.
+- Issue bölümü ile yapılacak işler ve geliştirme adımlarının takip edilmesi planlandı.
+
+---
+
 ## Derleme ve Çalıştırma
 
-Proje C dili ile geliştirilmektedir. Dosyalar tamamlandığında aşağıdaki komut ile derlenebilir:
+Proje C dili ile geliştirilecektir. Kod dosyaları tamamlandığında proje aşağıdaki komut ile derlenebilir:
 
 ```bash
 gcc main.c graph.c bfs_dfs.c kruskal.c -o pcb_network
@@ -204,30 +217,7 @@ Windows ortamında çalıştırmak için:
 pcb_network.exe
 ```
 
----
-
-## GitHub Kullanımı
-
-Proje geliştirme sürecinde GitHub kullanılmaktadır. Ekip üyeleri kendi branchleri üzerinde çalışmaktadır.
-
-Kullanılan temel GitHub adımları:
-
-- Repository oluşturuldu.
-- Proje klasör yapısı hazırlandı.
-- Görev alanlarına göre branchler açıldı.
-- Her ekip üyesi kendi görev alanında geliştirme yaptı.
-- Yapılan değişiklikler commit edildi.
-- Branchlerden ana geliştirme dalına pull request açıldı.
-- README dosyası güncellendi.
-- Ara rapor için GitHub bağlantısı hazır hale getirildi.
-
----
-
-## Ara Rapor Durumu
-
-Ara rapor aşamasında proje iskeleti oluşturulmuştur. GitHub reposu hazırlanmış, klasör yapısı kurulmuş, görev paylaşımı yapılmış ve ekip üyeleri kendi branchleri üzerinde çalışmaya başlamıştır.
-
-Bu aşamada amaç, projenin temel yapısını oluşturmak ve ilerleyen süreçte algoritmaların tamamlanarak entegre edilmesini sağlamaktır.
+Not: Proje dosya yapısı tamamlandığında derleme komutu klasör yapısına göre güncellenecektir.
 
 ---
 
@@ -247,22 +237,20 @@ Tamamlanan işlemler:
 Devam eden işlemler:
 
 - Graf çekirdeğinin tamamlanması
-- BFS ve DFS algoritmalarının tamamlanması
-- Kruskal algoritmasının tamamlanması
-- Union-Find veri yapısının tamamlanması
-- Test verilerinin hazırlanması
-- Kodların birleştirilmesi
-- Son çıktıların düzenlenmesi
+- BFS ve DFS algoritmalarının yazılması
+- Kruskal algoritmasının yazılması
+- Union-Find veri yapısının hazırlanması
+- Prim algoritması ve Min-Heap araştırmasının yapılması
+- JSON test verilerinin hazırlanması
+- Görselleştirme arayüzünün oluşturulması
+- Kodların entegre edilmesi
+- Docker ve test yapısının hazırlanması
+- Rapor ve video içeriklerinin tamamlanması
 
 ---
 
 ## Sonuç
 
-Bu proje ile graf veri yapısının gerçek bir problem üzerinde uygulanması hedeflenmektedir. PCB bağlantı noktaları graf olarak modellenmekte ve bağlantı maliyetini en aza indirmek için Kruskal algoritması ile Minimum Spanning Tree hesaplanmaktadır.
+Bu proje ile graf veri yapısının gerçek bir problem üzerinde uygulanması hedeflenmektedir. PCB bağlantı noktaları graf olarak modellenmekte ve bağlantı maliyetini en aza indirmek için Minimum Spanning Tree algoritmaları kullanılmaktadır.
 
-Proje, Veri Yapıları dersinde öğrenilen graf, BFS, DFS, Union-Find ve MST konularının birlikte kullanıldığı uygulamalı bir çalışmadır.
-
-## How to Compile
-
-```bash
-gcc main.c graph.c bfs_dfs.c kruskal.c -o pcb_network
+Proje, Veri Yapıları dersinde öğrenilen graf, BFS, DFS, Union-Find, Kruskal, Prim ve temel veri yapıları konularının birlikte kullanıldığı uygulamalı bir çalışmadır.
