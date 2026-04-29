@@ -135,25 +135,28 @@ Projede kullanılacak temel klasör yapısı aşağıdaki gibidir:
 ```txt
 pcb-network-optimization/
 │
-├── algoritmalar/
+├── algorithms/
 │   └── BFS, DFS, Kruskal, Prim ve diğer algoritmalar
 │
-├── cekirdek/
+├── core/
 │   └── Graf veri yapısı ve temel fonksiyonlar
 │
-├── veri/
+├── data/
 │   └── Örnek giriş ve JSON test verileri
 │
-├── belgeler/
+├── docker/
+│   └── Docker kurulumu ve çalıştırma dosyaları
+│
+├── docs/
 │   └── Rapor ve açıklama dosyaları
 │
-├── testler/
+├── tests/
 │   └── Test dosyaları
 │
-├── gecisler/
+├── traversals/
 │   └── BFS ve DFS geçiş işlemleri
 │
-├── kullanici-arayuzu/
+├── ui/
 │   └── Çıktı ve görselleştirme işlemleri
 │
 ├── .gitignore
