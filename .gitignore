@@ -1,55 +1,43 @@
-# Prerequisites
-*.d
-
-# Object files
+# C build files
 *.o
-*.ko
 *.obj
+*.exe
+*.out
 *.elf
 
-# Linker output
-*.ilk
-*.map
-*.exp
+# Libraries
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
 
-# Precompiled Headers
+# Debug files
+*.pdb
+*.dSYM/
+*.idb
+*.ilk
+
+# Compiler generated files
+*.d
 *.gch
 *.pch
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Temporary files
+*.tmp
+*.log
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# VS Code settings
+.vscode/
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
-
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Code::Blocks files
+*.cbp
+*.layout
+*.depend
 
 # debug information files
 *.dwo
+
+# Mac system files
+.DS_Store
+
