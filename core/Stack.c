@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//stack tasarımı
+
 
 
 Nodeptr newNode(int data) {
@@ -59,7 +59,7 @@ int peek(stackptr stack){
 }
 
 int pop(stackptr stack) {
-    // 1. Stack boşsa hata döndür
+    //  Stack boşsa hata döndür
     if (bosmu(stack)) {
         printf("HATA: Stack zaten bos!\n");
         return -1;
@@ -67,10 +67,10 @@ int pop(stackptr stack) {
     Nodeptr temp = stack->bas;
     int silinenVeri = temp->data;
 
-    // 3. Stack'in başını bir sonrakine kaydır
+    //  Stack'in başını bir sonrakine kaydır
     stack->bas = stack->bas->forward;
 
-    // 4. Eski düğümü bellekten sil ve veriyi döndür
+    //  Eski düğümü bellekten sil ve veriyi döndür
     free(temp);
     return silinenVeri;
 }
