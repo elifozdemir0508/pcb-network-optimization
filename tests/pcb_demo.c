@@ -12,7 +12,7 @@ static void print_separator(const char *title) {
 }
 
 static void build_example_graph(Graph *graph) {
-    initGraph(graph, 10);
+    initGraph(graph, 5);
 
     addEdge(graph, 0, 1, 320);
     addEdge(graph, 0, 2, 403);
@@ -21,11 +21,6 @@ static void build_example_graph(Graph *graph) {
     addEdge(graph, 1, 4, 223);
     addEdge(graph, 2, 4, 452);
     addEdge(graph, 3, 4, 269);
-    addEdge(graph, 3, 1, 342);
-    addEdge(graph, 5, 4, 643);
-    addEdge(graph, 8, 4, 212);
-    addEdge(graph, 6, 4, 12);
-    addEdge(graph, 5, 7, 645);
 }
 
 static void print_mst_result(const MSTResult *result) {
