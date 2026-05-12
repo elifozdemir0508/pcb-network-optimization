@@ -9,3 +9,10 @@ target_include_directories(test_queue PRIVATE ../core)
 
 add_executable(test_stack test_stack.c ../core/Stack.c)
 target_include_directories(test_stack PRIVATE ../core)
+
+
+add_executable(test_bfs test_bfs.c ../core/Bfs.c ../core/Queue.c)
+target_include_directories(test_bfs PRIVATE ../core)
+
+add_executable(test_dfs test_dfs.c ../core/Dfs.c ../core/Stack.c)
+target_include_directories(test_dfs PRIVATE ../core)
