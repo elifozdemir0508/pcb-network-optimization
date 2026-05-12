@@ -17,7 +17,7 @@ void addEdge(Graph *graph, int source, int target, int weight) {
         target < 0 || target >= graph->nodeCount) {
         printf("Invalid node index.\n");
         return;
-    }
+        }
 
     graph->adjacencyMatrix[source][target] = weight;
     graph->adjacencyMatrix[target][source] = weight;

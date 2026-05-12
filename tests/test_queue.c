@@ -1,5 +1,5 @@
 #include "../core/Queue.h"
-#include<stdio.h>
+
 int  main()
 {
     kuyrukptr myQueue = newQueue();

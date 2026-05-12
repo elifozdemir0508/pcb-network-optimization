@@ -14,5 +14,15 @@ target_include_directories(test_stack PRIVATE ../core)
 add_executable(test_bfs test_bfs.c ../core/Bfs.c ../core/Queue.c)
 target_include_directories(test_bfs PRIVATE ../core)
 
-add_executable(test_dfs test_dfs.c ../core/Dfs.c ../core/Stack.c)
+add_executable(test_dfs test_dfs.c ../core/Dfs.c ../core/Stack.c ../core/graph.c)
 target_include_directories(test_dfs PRIVATE ../core)
+
+add_executable(test_graph test_graph.c ../core/graph.c)
+target_include_directories(test_graph PRIVATE ../core)
+
+add_executable(kruskal_test kruskal_test.c ../core/graph.c ../core/union_find.c ../algorithms/kruskal.c)
+target_include_directories(kruskal_test PRIVATE ../algorithms)
+
+# Connectedness Testi: Test dosyasi, Connectedness, DFS, Stack ve Graph mutfaklarini birlestirir.
+add_executable(test_connectedness test_connectedness.c ../core/connectedness.c ../core/Dfs.c ../core/Stack.c ../core/graph.c)
+target_include_directories(test_connectedness PRIVATE ../core)

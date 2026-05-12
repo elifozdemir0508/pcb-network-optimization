@@ -4,6 +4,7 @@
 #include "../core/graph.h"
 #include "../algorithms/kruskal.h"
 
+
 static bool assert_equal_int(const char *label, int expected, int actual) {
     if (expected != actual) {
         printf("[FAIL] %s: expected=%d actual=%d\n", label, expected, actual);
