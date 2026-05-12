@@ -3,7 +3,7 @@
 #include "Dfs.h"
 #include "Stack.h"
 
-void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
+int DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
     int* ziyaret_edildi = (int*)calloc(dugum_sayisi, sizeof(int));
 
     printf("\n--- Iteratif DFS Taramasi Basliyor (Baslangic: %d) ---\n", baslangic_dugumu);
@@ -11,6 +11,7 @@ void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
 
 
     stackptr yigitim = yeniStack();
+    int ulasilan_parca_sayisi = 0;
 
     //Baslangic dugumunu Stack'e ekle
     push(yigitim, newNode(baslangic_dugumu));
@@ -27,6 +28,7 @@ void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
             // Parcayi ziyaret ettik, ekrana yaz ve isaretle
             printf("%d ", anlik_dugum);
             ziyaret_edildi[anlik_dugum] = 1;
+            ulasilan_parca_sayisi++;
 
             // Komsularini bul ve Stack'e at.
             for (int i = dugum_sayisi - 1; i >= 0; i--) {
@@ -44,4 +46,5 @@ void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
     free(yigitim);
     free(ziyaret_edildi);
     printf("\n\n--- DFS Taramasi Bitti ---\n");
+    return ulasilan_parca_sayisi;
 }

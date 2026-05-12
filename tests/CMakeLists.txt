@@ -16,3 +16,6 @@ target_include_directories(test_bfs PRIVATE ../core)
 
 add_executable(test_dfs test_dfs.c ../core/Dfs.c ../core/Stack.c)
 target_include_directories(test_dfs PRIVATE ../core)
+
+add_executable(test_graph test_graph.c ../core/graph.c)
+target_include_directories(test_graph PRIVATE ../core)
