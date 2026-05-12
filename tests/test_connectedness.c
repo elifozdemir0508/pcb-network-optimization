@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "Graph.h"
-#include "connectedness.h"
+#include "graph.h"
+#include "Connectedness.h"
 
 int main() {
     printf("--- CONNECTEDNESS (BAGLANTILILIK) TESTI BASLIYOR ---\n\n");

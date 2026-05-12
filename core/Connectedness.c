@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "connectedness.h"
+#include "Connectedness.h"
 #include "Dfs.h" //Dfs kullanır
 
 int CheckConnectedness(Graph *graph) {
