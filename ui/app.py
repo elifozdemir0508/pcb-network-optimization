@@ -78,7 +78,7 @@ def arayuz_yoneticisi(btn_tiklanma, interval_tetik, mevcut_elemanlar):
         with open(os.path.join(SHARED_DIR, "input_graph.json"), 'w', encoding='utf-8') as f:
             json.dump(export_data, f, indent=4)
             
-        # JSON YAZMA İŞLEMİ BİTTİKTEN SONRA FLAG DOSYASINI OLUŞTUR (C servisini tetikler)
+        # JSON YAZMA İŞLEMİ BİTTİKTEN SONRA FLAG DOSYASINI OLUŞTUR
         with open(os.path.join(SHARED_DIR, "calculate.flag"), 'w', encoding='utf-8') as f:
             f.write("ready")
         
@@ -89,9 +89,11 @@ def arayuz_yoneticisi(btn_tiklanma, interval_tetik, mevcut_elemanlar):
         mst_dosyasi = os.path.join(SHARED_DIR, "output_mst.json")
         if os.path.exists(mst_dosyasi):
             try:
+                # 1. Dosyayı oku
                 with open(mst_dosyasi, 'r', encoding='utf-8') as f:
                     mst_verisi = json.load(f)
                 
+                # 2. MST kenarlarını ayrıştır ve arayüzü güncelle
                 mst_kenarlari = [(str(edge['source']), str(edge['target'])) for edge in mst_verisi.get('mst_edges', [])]
                 
                 for eleman in mevcut_elemanlar:
@@ -104,6 +106,10 @@ def arayuz_yoneticisi(btn_tiklanma, interval_tetik, mevcut_elemanlar):
 
                 maliyet = mst_verisi.get('response_meta', {}).get('total_cost', "Bilinmiyor")
                 mesaj = f"✅ MST Başarıyla Çizildi! Toplam Bağlantı Maliyeti: {maliyet}"
+                
+                # 3. İŞLEM BİTTİKTEN SONRA DOSYAYI SİL (Tekrar okunmasını engelle)
+                os.remove(mst_dosyasi)
+                
             except Exception as e:
                 mesaj = "C servisinden veri okunurken veya işlenirken hata oluştu."
                 
