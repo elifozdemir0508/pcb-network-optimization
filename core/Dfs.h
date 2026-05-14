@@ -1,6 +1,7 @@
 #ifndef DFS_H
 #define DFS_H
 
-void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi);
+#include "graph.h"
+int DFS_Calistir(int baslangic_dugumu,Graph* graph);
 
 #endif

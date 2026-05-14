@@ -3,36 +3,35 @@
 #include "Dfs.h"
 #include "Stack.h"
 
-void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
-    int* ziyaret_edildi = (int*)calloc(dugum_sayisi, sizeof(int));
+int DFS_Calistir(int baslangic_dugumu, Graph* graf) {
 
-    printf("\n--- Iteratif DFS Taramasi Basliyor (Baslangic: %d) ---\n", baslangic_dugumu);
-    printf("Ziyaret Sirasi (Parca Numaralari): ");
+
+    int dugum_sayisi = graf->nodeCount;
+
+
+
+    int* ziyaret_edildi = (int*)calloc(dugum_sayisi, sizeof(int));
 
 
     stackptr yigitim = yeniStack();
 
-    //Baslangic dugumunu Stack'e ekle
+    int ulasilan_parca_sayisi = 0;
+
+
     push(yigitim, newNode(baslangic_dugumu));
 
-    // 3. Stack bosalana kadar devam et
     while (!bosmu(yigitim)) {
-
-        //  En ustteki elemani al
         int anlik_dugum = pop(yigitim);
 
-        //  Eger bu parcaya daha once GIDILMEDIyse islem yap
         if (ziyaret_edildi[anlik_dugum] == 0) {
-
-            // Parcayi ziyaret ettik, ekrana yaz ve isaretle
-            printf("%d ", anlik_dugum);
             ziyaret_edildi[anlik_dugum] = 1;
+            ulasilan_parca_sayisi++;
 
-            // Komsularini bul ve Stack'e at.
+
             for (int i = dugum_sayisi - 1; i >= 0; i--) {
 
 
-                if (graf[anlik_dugum][i] == 1 && ziyaret_edildi[i] == 0) {
+                if (graf->adjacencyMatrix[anlik_dugum][i] != 0 && ziyaret_edildi[i] == 0) {
 
                     push(yigitim, newNode(i));
                 }
@@ -40,8 +39,9 @@ void DFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
         }
     }
 
-    // 7. Bellek temizligi
+
     free(yigitim);
     free(ziyaret_edildi);
-    printf("\n\n--- DFS Taramasi Bitti ---\n");
+
+    return ulasilan_parca_sayisi;
 }

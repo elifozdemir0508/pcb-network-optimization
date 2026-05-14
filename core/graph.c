@@ -1,20 +1,9 @@
 #include <stdio.h>
-
-#define MAX_NODES 100
-
-typedef struct {
-    int source;
-    int target;
-    int weight;
-} Edge;
-
-typedef struct {
-    int nodeCount;
-    int adjacencyMatrix[MAX_NODES][MAX_NODES];
-} Graph;
+#include "graph.h"
 
 void initGraph(Graph *graph, int nodeCount) {
     graph->nodeCount = nodeCount;
+    graph->edgeCount = 0;
 
     for (int i = 0; i < nodeCount; i++) {
         for (int j = 0; j < nodeCount; j++) {
@@ -24,13 +13,23 @@ void initGraph(Graph *graph, int nodeCount) {
 }
 
 void addEdge(Graph *graph, int source, int target, int weight) {
-    if (source < 0 || source >= graph->nodeCount || target < 0 || target >= graph->nodeCount) {
+    if (source < 0 || source >= graph->nodeCount ||
+        target < 0 || target >= graph->nodeCount) {
         printf("Invalid node index.\n");
         return;
-    }
+        }
 
     graph->adjacencyMatrix[source][target] = weight;
     graph->adjacencyMatrix[target][source] = weight;
+
+    if (graph->edgeCount < MAX_EDGES) {
+        graph->edges[graph->edgeCount].source = source;
+        graph->edges[graph->edgeCount].target = target;
+        graph->edges[graph->edgeCount].weight = weight;
+        graph->edgeCount++;
+    } else {
+        printf("Maximum edge limit reached.\n");
+    }
 }
 
 void printAdjacencyMatrix(Graph *graph) {
@@ -44,17 +43,13 @@ void printAdjacencyMatrix(Graph *graph) {
     }
 }
 
-int main() {
-    Graph graph;
+void printEdges(Graph *graph) {
+    printf("Edges:\n");
 
-    initGraph(&graph, 4);
-
-    addEdge(&graph, 0, 1, 4);
-    addEdge(&graph, 0, 2, 2);
-    addEdge(&graph, 1, 3, 5);
-    addEdge(&graph, 2, 3, 1);
-
-    printAdjacencyMatrix(&graph);
-
-    return 0;
+    for (int i = 0; i < graph->edgeCount; i++) {
+        printf("%d -- %d  weight: %d\n",
+               graph->edges[i].source,
+               graph->edges[i].target,
+               graph->edges[i].weight);
+    }
 }
