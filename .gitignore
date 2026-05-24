@@ -41,3 +41,5 @@
 # Mac system files
 .DS_Store
 
+build
+PCBNetworkOptimization
