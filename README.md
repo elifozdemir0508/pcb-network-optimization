@@ -200,24 +200,67 @@ Ara rapor aşamasında aşağıdaki çalışmalar yapılmıştır:
 
 ---
 
-## Derleme ve Çalıştırma
+## Derleme ve Çalıştırma Kılavuzu
 
-Proje C dili ile geliştirilecektir. Kod dosyaları tamamlandığında proje aşağıdaki komut ile derlenebilir:
+Proje, yüksek performanslı graf hesaplamaları için **C11** standardında bir backend motoru ve görselleştirme için **Python** tabanlı bir frontend arayüzü barındırmaktadır. Sistem, dosya tabanlı asenkron bir mekanizma (IPC) ile haberleşmektedir.
 
+### Ön Gereksinimler
+
+Sistemi yerelde çalıştırmadan önce bilgisayarınızda aşağıdaki araçların kurulu olduğundan emin olun:
+* **C Derleyici:** GCC (Linux/MinGW) veya Clang
+* **Derleme Otomasyonu:** CMake (Minimum v3.10)
+* **Python:** Python 3.8 veya üzeri
+
+---
+
+### 1. Backend Derleme (Build) İşlemleri
+
+Projenin kök dizininde terminali açarak aşağıdaki adımları sırasıyla uygulayınız. `CMakeLists.txt` konfigürasyonumuz gereği, derlenen executable dosya otomatik olarak projenin **kök dizinine** çıkarılacaktır.
+
+#### Linux ve macOS Ortamında:
 ```bash
-gcc main.c graph.c bfs_dfs.c kruskal.c -o pcb_network
+# Derleme dosyalarını oluştur
+cmake -B build
+
+# Projeyi derle (Executable kök dizine üretilir)
+cmake --build build
 ```
 
-Linux veya macOS ortamında çalıştırmak için:
+Windows Ortamında (PowerShell / CMD):
+Windows üzerinde varsayılan Visual Studio derleyicisi yerine GCC (MinGW) kullanıyorsanız derleme komutuna generator parametresi eklenmelidir:
 
 ```bash
-./pcb_network
+# MinGW ile derleme dosyalarını oluştur
+cmake -G "MinGW Makefiles" -B build
+
+# Projeyi derle (Executable.exe kök dizine üretilir)
+cmake --build build
+```
+2. Sistemi Çalıştırma (Execution)
+Sistemin kararlı çalışabilmesi için önce Backend Motorunun (dinleme modunda), ardından Frontend Arayüzünün başlatılması gerekmektedir.
+
+#### Adım A: Backend Motorunu Başlatma
+Projenin kök dizininde terminal üzerinden derlenen binary dosyayı tetikleyin:
+- Linux / macOS:
+```bash
+./PCBNetworkOptimization
+```
+- Windows (PowerShell):
+```bash
+.\PCBNetworkOptimization.exe
 ```
 
-Windows ortamında çalıştırmak için:
-
+#### Adım B: Frontend Arayüzü Başlatma
+Yeni bir terminal penceresi açın, projenin kök dizininden itibaren ui/ klasörüne geçerek arayüzü tetikleyin:
 ```bash
-pcb_network.exe
+# Arayüz klasörüne geçiş yap
+cd ui
+
+# Gerekli bağımlılıkları yükle (Eğer varsa)
+pip install -r requirements.txt
+
+# Web arayüzünü ayağa kaldır
+python app.py
 ```
 
 Not: Proje dosya yapısı tamamlandığında derleme komutu klasör yapısına göre güncellenecektir.
@@ -236,14 +279,13 @@ Tamamlanan işlemler:
 - Görev paylaşımı yapıldı.
 - Branch yapısı oluşturuldu.
 - İlk commitler yapıldı.
+- Graf çekirdeğinin tamamlandı.
+- BFS ve DFS algoritmalarının yazıldı.
+- Kruskal algoritmasının yazıldı.
+- Union-Find veri yapısının hazırlandı.
 
 Devam eden işlemler:
 
-- Graf çekirdeğinin tamamlanması
-- BFS ve DFS algoritmalarının yazılması
-- Kruskal algoritmasının yazılması
-- Union-Find veri yapısının hazırlanması
-- Prim algoritması ve Min-Heap araştırmasının yapılması
 - JSON test verilerinin hazırlanması
 - Görselleştirme arayüzünün oluşturulması
 - Kodların entegre edilmesi
