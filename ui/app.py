@@ -16,8 +16,8 @@ if not os.path.exists(SHARED_DIR):
 # Görselleştirme Stilleri
 stil_sayfasi = [
     {'selector': 'node', 'style': {'content': 'data(label)', 'background-color': '#0074D9', 'color': 'white', 'text-valign': 'center', 'font-size': '12px', 'z-index': 10}},
-    {'selector': ':selected', 'style': {'background-color': '#FF4136', 'line-color': '#FF4136', 'border-width': 2, 'border-color': 'black'}}, # Seçili elemanlar kırmızı olur
-    {'selector': 'edge', 'style': {'line-color': '#CCCCCC', 'width': 2, 'opacity': 0.8, 'label': 'data(weight)', 'text-rotation': 'autorotate', 'font-size': '10px'}}, # Kenar üzerinde ağırlık yazar
+    {'selector': ':selected', 'style': {'background-color': '#FF4136', 'line-color': '#FF4136', 'border-width': 2, 'border-color': 'black'}}, 
+    {'selector': 'edge', 'style': {'line-color': '#CCCCCC', 'width': 2, 'opacity': 0.8, 'label': 'data(weight)', 'text-rotation': 'autorotate', 'font-size': '10px'}}, 
     {'selector': '.mst-edge', 'style': {'line-color': '#2ECC40', 'width': 5, 'opacity': 1, 'transition-property': 'line-color, width', 'transition-duration': '0.8s', 'z-index': 5}} 
 ]
 
@@ -44,10 +44,30 @@ app.layout = html.Div([
     )
 ], style={'fontFamily': 'Arial'})
 
+
 # ---------------------------------------------------------
 # Yazar: Evin Yılmaz
-# Açıklama: Düğüm/kenar ekleme, silme ve hesaplama olaylarını 
-# asenkron dosya okuma işlemleriyle birlikte yönetir.
+# Açıklama: Graf üzerindeki mevcut kenarların ağırlıklarını,
+# düğümlerin güncel 2D koordinatlarına göre yeniden hesaplar.
+# ---------------------------------------------------------
+def kenar_agirliklarini_guncelle(elemanlar):
+    dugum_konumlari = {e['data']['id']: e['position'] for e in elemanlar if 'source' not in e['data'] and 'position' in e}
+    for e in elemanlar:
+        if 'source' in e['data']:
+            src = e['data']['source']
+            tgt = e['data']['target']
+            if src in dugum_konumlari and tgt in dugum_konumlari:
+                p1 = dugum_konumlari[src]
+                p2 = dugum_konumlari[tgt]
+                mesafe = math.sqrt((p2['x'] - p1['x'])**2 + (p2['y'] - p1['y'])**2)
+                e['data']['weight'] = round(mesafe, 2)
+    return elemanlar
+
+
+# ---------------------------------------------------------
+# Yazar: Evin Yılmaz
+# Açıklama: Düğüm/kenar manipülasyonlarını, sürükleme olaylarını
+# ve C mikroservis girdi/çıktı süreçlerini yöneten ana callback.
 # ---------------------------------------------------------
 @app.callback(
     Output('graf-ekrani', 'elements'),
@@ -57,18 +77,19 @@ app.layout = html.Div([
     Input('btn-kenar-sil', 'n_clicks'),
     Input('btn-hesapla', 'n_clicks'),
     Input('dosya-dinleyici', 'n_intervals'),
+    Input('graf-ekrani', 'dragNodeEnd'),
     State('graf-ekrani', 'elements'),
     State('graf-ekrani', 'selectedNodeData'),
     State('graf-ekrani', 'selectedEdgeData')
 )
-def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik, mevcut_elemanlar, secili_dugumler, secili_kenarlar):
+def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik, drag_sonu, mevcut_elemanlar, secili_dugumler, secili_kenarlar):
     tetikleyen_olay = dash.ctx.triggered_id
     mesaj = "Sistem hazır. Shift tuşuna basılı tutarak birden fazla düğüm/kenar seçebilirsiniz."
     
     if mevcut_elemanlar is None:
         mevcut_elemanlar = []
 
-    # 1. OLAY: KULLANICI YENİ DÜĞÜM EKLEDİ (Artık kenar oluşturmaz, sadece düğüm ekler)
+    # 1. OLAY: KULLANICI YENİ DÜĞÜM EKLEDİ
     if tetikleyen_olay == 'btn-dugum-ekle':
         dugumler = [eleman for eleman in mevcut_elemanlar if 'source' not in eleman['data']]
         yeni_id = str(len(dugumler))
@@ -83,13 +104,10 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
         if secili_dugumler and len(secili_dugumler) == 2:
             n1_id, n2_id = secili_dugumler[0]['id'], secili_dugumler[1]['id']
             
-            # Kenar zaten var mı kontrol et
             kenar_var = any('source' in e['data'] and ((e['data']['source'] == n1_id and e['data']['target'] == n2_id) or (e['data']['source'] == n2_id and e['data']['target'] == n1_id)) for e in mevcut_elemanlar)
-            
             if kenar_var:
                 return mevcut_elemanlar, "Uyarı: Bu iki düğüm arasında zaten bir bağlantı var!"
 
-            # Düğümlerin anlık pozisyonlarını bul
             pos1, pos2 = None, None
             for e in mevcut_elemanlar:
                 if 'source' not in e['data']:
@@ -102,7 +120,7 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
                 mevcut_elemanlar.append(yeni_kenar)
                 mesaj = f"Başarılı: N{n1_id} ve N{n2_id} arasına kenar eklendi."
         else:
-            mesaj = "Hata: Kenar eklemek için graf üzerinden tam olarak 2 düğüm seçmelisiniz (Shift'e basılı tutarak tıklayın)."
+            mesaj = "Hata: Kenar eklemek için graf üzerinden tam olarak 2 düğüm seçmelisiniz."
         return mevcut_elemanlar, mesaj
 
     # 3. OLAY: KENAR SİLME
@@ -115,8 +133,17 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
             mesaj = "Hata: Silmek için graf üzerinden bir kenar seçmelisiniz."
         return mevcut_elemanlar, mesaj
 
-    # 4. OLAY: HESAPLA (C SERVİSİNE GÖNDER)
+    # 4. OLAY: DÜĞÜM SÜRÜKLENDİ (Konum Değiştiğinde Mesafeleri Dinamik Güncelle)
+    elif tetikleyen_olay == 'graf-ekrani':
+        mevcut_elemanlar = kenar_agirliklarini_guncelle(mevcut_elemanlar)
+        mesaj = "Bileşen konumu değiştirildi; bağlantı mesafeleri dinamik olarak güncellendi."
+        return mevcut_elemanlar, mesaj
+
+    # 5. OLAY: HESAPLA (C SERVİSİNE GÖNDER)
     elif tetikleyen_olay == 'btn-hesapla':
+        # Göndermeden önce konumları ve mesafeleri son kez doğrula
+        mevcut_elemanlar = kenar_agirliklarini_guncelle(mevcut_elemanlar)
+        
         dugumler = [e for e in mevcut_elemanlar if 'source' not in e['data']]
         kenarlar = [e for e in mevcut_elemanlar if 'source' in e['data']]
 
@@ -132,14 +159,13 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
         with open(os.path.join(SHARED_DIR, "calculate.flag"), 'w', encoding='utf-8') as f:
             f.write("ready")
 
-        # Eskiden yeşil olan MST kenarlarını sıfırla (yeni hesaplama için griye döndür)
         for e in mevcut_elemanlar:
             e['classes'] = ''
 
-        mesaj = "Kayıt alındı. Hesaplama emri verildi, C servisi bekleniyor..."
+        mesaj = "Güncel graf koordinatları kaydedildi. C servisine hesaplama emri verildi..."
         return mevcut_elemanlar, mesaj
 
-    # 5. OLAY: ZAMANLAYICI KONTROLÜ (C'den gelen sonucu okuma)
+    # 6. OLAY: ZAMANLAYICI KONTROLÜ (C'den gelen sonucu okuma)
     elif tetikleyen_olay == 'dosya-dinleyici':
         mst_dosyasi = os.path.join(SHARED_DIR, "output_mst.json")
         if os.path.exists(mst_dosyasi):
@@ -168,4 +194,5 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
     return mevcut_elemanlar, mesaj
 
 if __name__ == '__main__':
-    app.run_server(debug=True, host='0.0.0.0', port=8050)
+    # Modern Dash standartlarına uygun çalıştırma
+    app.run(debug=True, host='0.0.0.0', port=8050)
