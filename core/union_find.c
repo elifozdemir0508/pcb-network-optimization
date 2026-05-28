@@ -54,6 +54,15 @@ UnionFind *union_find_create(uint32_t n) {
  * @note: O(1) karmaşıklığına sahiptir. Bellek sızıntılarını önlemek için kullanılmalıdır.
  */
 void union_find_destroy(UnionFind *uf) {
+	if (!uf) {
+		return;
+	}
+
+	free(uf->parent);
+	free(uf->rank);
+	free(uf);
+}
+
 /**
  * @brief Verilen düğümün ait olduğu kümenin kökünü (root) bulur. Yol sıkıştırma (path compression) işlemi yapar.
  * 
@@ -67,14 +76,18 @@ void union_find_destroy(UnionFind *uf) {
  * 
  * @note: Yol sıkıştırma kullanıldığından ortalama zaman karmaşıklığı O(α(n))'dir.
  */
-	if (!uf) {
-		return;
+uint32_t union_find_find(UnionFind *uf, uint32_t x) {
+	if (!uf || x >= uf->n) {
+		return UINT32_MAX;
 	}
 
-	free(uf->parent);
-	free(uf->rank);
-	free(uf);
+	if (uf->parent[x] != x) {
+		uf->parent[x] = union_find_find(uf, uf->parent[x]);
+	}
+
+	return uf->parent[x];
 }
+
 /**
  * @brief Verilen iki düğümü aynı kümeye birleştirir. Sıraya göre birleştirme (union by rank) kullanır.
  * 
@@ -89,19 +102,6 @@ void union_find_destroy(UnionFind *uf) {
  * 
  * @note: Ortalama O(α(n)) zaman karmaşıklığı ile çalışır. Köklerin rank değerine göre ağaç derinliği dengede tutulur.
  */
-
-uint32_t union_find_find(UnionFind *uf, uint32_t x) {
-	if (!uf || x >= uf->n) {
-		return UINT32_MAX;
-	}
-
-	if (uf->parent[x] != x) {
-		uf->parent[x] = union_find_find(uf, uf->parent[x]);
-	}
-
-	return uf->parent[x];
-}
-
 bool union_find_union(UnionFind *uf, uint32_t a, uint32_t b) {
 	if (!uf || a >= uf->n || b >= uf->n) {
 		return false;
@@ -112,20 +112,6 @@ bool union_find_union(UnionFind *uf, uint32_t a, uint32_t b) {
 
 	if (root_a == root_b) {
 		return false;
-/**
- * @brief Verilen iki düğümün aynı kümede olup olmadığını kontrol eder.
- * 
- * @param uf: Üzerinde işlem yapılacak UnionFind yapısı
- * @param a: Kontrol edilecek birinci düğüm
- * @param b: Kontrol edilecek ikinci düğüm
- * 
- * @retval false: Düğümler farklı kümelerde ise veya geçersiz parametre varsa
- * @retval true: Düğümler aynı kümede ise
- * 
- * @author: Cafer Tura Çetin
- * 
- * @note: union_find_find fonksiyonunu arka planda kullandığı için karmaşıklığı ortalama O(α(n))'dir.
- */
 	}
 
 	if (uf->rank[root_a] < uf->rank[root_b]) {
@@ -140,6 +126,20 @@ bool union_find_union(UnionFind *uf, uint32_t a, uint32_t b) {
 	return true;
 }
 
+/**
+ * @brief Verilen iki düğümün aynı kümede olup olmadığını kontrol eder.
+ * 
+ * @param uf: Üzerinde işlem yapılacak UnionFind yapısı
+ * @param a: Kontrol edilecek birinci düğüm
+ * @param b: Kontrol edilecek ikinci düğüm
+ * 
+ * @retval false: Düğümler farklı kümelerde ise veya geçersiz parametre varsa
+ * @retval true: Düğümler aynı kümede ise
+ * 
+ * @author: Cafer Tura Çetin
+ * 
+ * @note: union_find_find fonksiyonunu arka planda kullandığı için karmaşıklığı ortalama O(α(n))'dir.
+ */
 bool union_find_connected(UnionFind *uf, uint32_t a, uint32_t b) {
 	if (!uf || a >= uf->n || b >= uf->n) {
 		return false;
