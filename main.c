@@ -9,6 +9,15 @@
 #define OUTPUT_FILE "ui/shared_data/output_mst.json"
 #define FLAG_FILE "ui/shared_data/calculate.flag"
 
+/**
+ * @brief Sürekli çalışarak UI ile C backend arasındaki iletişimi dinler ve tetiklendiğinde MST hesaplar.
+ * 
+ * @retval 0: Program başarılı bir şekilde sonlandığında döndürülür.
+ * 
+ * @author: Cafer Tura Çetin
+ * 
+ * @note: Sonsuz bir döngü içerisinde "calculate.flag" dosyasını bekler ve dosya bulunduğunda hesaplama adımlarını işletir.
+ */
 int main() {
 
     while(1) {
