@@ -32,7 +32,7 @@ void BFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
 
             // EGER bu iki parca arasinda kablo (baglanti) varsa (graf[...][i] == 1)
             // VE bu parcaya daha once hic gitmediysek (ziyaret_edildi[i] == 0)
-            if (graf[anlik_dugum][i] == 1 && ziyaret_edildi[i] == 0) {
+            if (graf[anlik_dugum][i] == 0 && ziyaret_edildi[i] == 0) {
 
                 enqueue(kuyrugum, i);     // Listeye ekle ki sira ona da gelsin
                 ziyaret_edildi[i] = 1;    // Isaretle ki baska bir yoldan tekrar gelmeyelim
