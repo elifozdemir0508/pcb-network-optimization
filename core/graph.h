@@ -22,4 +22,9 @@ void addEdge(Graph *graph, int source, int target, int weight);
 void printAdjacencyMatrix(Graph *graph);
 void printEdges(Graph *graph);
 
+void ElifOzdemir_initGraph(Graph *graph, int nodeCount);
+void ElifOzdemir_addEdge(Graph *graph, int source, int target, int weight);
+void ElifOzdemir_printAdjacencyMatrix(Graph *graph);
+void ElifOzdemir_printEdges(Graph *graph);
+
 #endif
