@@ -1,5 +1,6 @@
 import dash
 from dash import html, dcc, Input, Output, State
+from dash.exceptions import PreventUpdate
 import dash_cytoscape as cyto
 import json
 import math
@@ -164,10 +165,15 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
                 mesaj = f"✅ MST Başarıyla Çizildi! Toplam Bağlantı Maliyeti: {maliyet}"
                 
                 os.remove(mst_dosyasi)
+                return mevcut_elemanlar, mesaj
                 
             except Exception as e:
-                mesaj = "C servisinden veri okunurken veya işlenirken hata oluştu."
-                
+                # Dosya yazılırken okunmaya çalışılırsa patlamaması için güncellemeyi pas geç
+                raise PreventUpdate
+        else:
+            # Dosya yoksa gereksiz yere ekranı yenileyip tıklamaları bozma
+            raise PreventUpdate
+            
     return mevcut_elemanlar, mesaj
 
 if __name__ == '__main__':
