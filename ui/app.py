@@ -1,3 +1,17 @@
+import dash
+from dash import html, dcc, Input, Output, State
+import dash_cytoscape as cyto
+import json
+import math
+import os
+
+# Dash uygulamasını başlat (Bu satırın eksikliği hataya sebep olmaktadır)
+app = dash.Dash(__name__)
+
+# C Servisi ile haberleşmek için ortak Docker klasörü
+SHARED_DIR = "shared_data"
+if not os.path.exists(SHARED_DIR):
+    os.makedirs(SHARED_DIR)
 # ---------------------------------------------------------
 # Yazar: Evin Yılmaz
 # Açıklama: Düğüm/kenar manipülasyonlarını, sürükleme olaylarını
