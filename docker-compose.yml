@@ -5,7 +5,7 @@ services:
       dockerfile: docker/Dockerfile.backend
     container_name: pcb_backend_engine
     volumes:
-      - .:/app
+      - .:/app:z
 
   frontend:
     build:
@@ -15,6 +15,6 @@ services:
     ports:
       - "8050:8050"
     volumes:
-      - .:/app
+      - .:/app:z
     depends_on:
-      - backend    
+      - backend   
