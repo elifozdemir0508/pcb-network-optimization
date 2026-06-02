@@ -3,9 +3,8 @@
 #include"Queue.h"
 
 
-
 //Bir Dügüm olusturma
-nodeptr newNode(int veri){
+static nodeptr newNode(int veri){
     nodeptr node = (nodeptr)malloc(sizeof(Node));
     node->data=veri;
     node->next=NULL;
