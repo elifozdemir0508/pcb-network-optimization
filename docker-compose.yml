@@ -1,11 +1,11 @@
-version: '3.8'
-
 services:
   backend:
     build:
       context: .
       dockerfile: docker/Dockerfile.backend
     container_name: pcb_backend_engine
+    volumes:
+      - .:/app:z
 
   frontend:
     build:
@@ -14,5 +14,7 @@ services:
     container_name: pcb_frontend_ui
     ports:
       - "8050:8050"
+    volumes:
+      - .:/app:z
     depends_on:
-      - backend
+      - backend   
