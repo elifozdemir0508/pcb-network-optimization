@@ -1,8 +1,8 @@
 # PCB Ağ Optimizasyonu
 
-Bu proje, Veri Yapıları dersi kapsamında geliştirilmiştir. Projenin amacı, PCB üzerindeki bağlantı noktalarını graf veri yapısı ile modellemek ve tüm bağlantı noktalarını minimum toplam maliyetle birbirine bağlayan uygun ağı oluşturmaktır.
+Bu proje, Veri Yapıları dersi kapsamında geliştirilmiştir. Projenin amacı, PCB üzerindeki bağlantı noktalarını graf veri yapısı ile modellemek ve bu bağlantı noktalarını minimum toplam maliyetle birbirine bağlayan uygun ağı oluşturmaktır.
 
-PCB üzerindeki bağlantı noktaları düğüm, bağlantı ihtimalleri kenar, bağlantı maliyetleri ise kenar ağırlığı olarak temsil edilmiştir. Minimum maliyetli bağlantı ağını elde etmek için Minimum Spanning Tree yaklaşımı kullanılmıştır. Bu kapsamda Kruskal algoritması ve döngü kontrolü için Union-Find veri yapısı tercih edilmiştir.
+PCB üzerindeki bağlantı noktaları graf düğümleri, bağlantı ihtimalleri graf kenarları, bağlantı maliyetleri ise kenar ağırlıkları olarak temsil edilmiştir. Minimum maliyetli bağlantı ağını elde etmek için Minimum Spanning Tree yaklaşımı kullanılmıştır. Bu kapsamda Kruskal algoritması ve döngü kontrolü için Union-Find veri yapısı tercih edilmiştir.
 
 ---
 
@@ -21,13 +21,13 @@ Proje kapsamında:
 * Kruskal algoritması ile Minimum Spanning Tree oluşturulmuştur.
 * Union-Find veri yapısı ile döngü oluşumu engellenmiştir.
 * MST toplam maliyeti hesaplanmıştır.
-* Sonuçlar kullanıcıya arayüz ve çıktı dosyaları üzerinden gösterilmiştir.
+* Sonuçlar kullanıcı arayüzü ve çıktı dosyaları üzerinden gösterilmiştir.
 
 ---
 
 ## Kullanılan Veri Yapıları ve Algoritmalar
 
-Projede aşağıdaki veri yapıları ve algoritmalar kullanılmıştır:
+Projede kullanılan temel veri yapıları ve algoritmalar şunlardır:
 
 * Graph
 * Edge
@@ -48,17 +48,23 @@ Bu projede MST hesaplaması için ana algoritma olarak Kruskal algoritması terc
 
 ## Sistem Mimarisi
 
-Proje, modüler bir yapı ile geliştirilmiştir. Temel veri yapıları, algoritmalar, veri giriş-çıkış işlemleri, test dosyaları, arayüz ve Docker yapılandırmaları ayrı klasörlerde tutulmuştur.
+Proje modüler bir yapı ile geliştirilmiştir. Temel veri yapıları, algoritmalar, veri giriş-çıkış işlemleri, test dosyaları, arayüz ve Docker yapılandırmaları ayrı klasörlerde tutulmuştur.
 
 Genel sistem akışı şu şekildedir:
 
-1. Kullanıcı veya test dosyası üzerinden graf verisi alınır.
-2. Graf düğümleri ve kenarları oluşturulur.
+1. Kullanıcı arayüz veya örnek veri dosyası üzerinden graf verisini oluşturur.
+2. Graf düğümleri ve kenarları sisteme eklenir.
 3. Grafın bağlılık durumu BFS/DFS tabanlı kontrollerle analiz edilir.
 4. Kruskal algoritması çalıştırılır.
 5. Union-Find veri yapısı ile döngü oluşturacak kenarlar elenir.
 6. MST kenarları ve toplam maliyet hesaplanır.
 7. Sonuçlar arayüzde ve çıktı dosyalarında gösterilir.
+
+Projede frontend ve backend bileşenleri birbirinden bağımsız çalışacak şekilde tasarlanmıştır. Kullanıcı arayüzü Python Dash ile ayrı bir bileşen olarak çalışırken, graf verilerini işleyen ve MST/Kruskal hesaplamasını yapan C backend ayrı bir hesaplama motoru olarak çalışmaktadır.
+
+Frontend ve backend doğrudan aynı bellek alanını paylaşmak yerine JSON dosyaları ve flag mekanizması üzerinden haberleşmektedir. Bu yapı sayesinde sistem daha modüler, daha kontrollü ve bağımsız çalışabilir hale getirilmiştir.
+
+> Not: Projede ayrı bir yapay zekâ servisi bulunmamaktadır. Değerlendirme maddesindeki bağımsız/asenkron çalışma yaklaşımı, bu projede C tabanlı algoritma motoru ve Python tabanlı frontend bileşenlerinin ayrılmasıyla sağlanmıştır.
 
 ---
 
@@ -96,6 +102,7 @@ pcb-network-optimization/
 │
 ├── .gitignore
 ├── CMakeLists.txt
+├── docker-compose.yml
 └── README.md
 ```
 
@@ -145,9 +152,9 @@ Graph modülü, PCB üzerindeki bağlantı noktalarını ve bu noktalar arasınd
 
 Graph yapısında:
 
-* `nodeCount`: düğüm sayısını tutar.
-* `edgeCount`: kenar sayısını tutar.
-* `adjacencyMatrix`: bağlantıların matris temsilini tutar.
+* `nodeCount`: Düğüm sayısını tutar.
+* `edgeCount`: Kenar sayısını tutar.
+* `adjacencyMatrix`: Bağlantıların matris temsilini tutar.
 * `edges`: Kruskal algoritması için kenar listesini tutar.
 
 Komşuluk matrisi BFS, DFS ve bağlılık kontrolünde kullanılır. Kenar listesi ise Kruskal algoritmasında kenarların ağırlıklarına göre sıralanması için kullanılır.
@@ -203,6 +210,22 @@ Burada `V` düğüm sayısını, `E` kenar sayısını ifade eder. `α(n)` inver
 
 ---
 
+## Alan Karmaşıklığı Analizi
+
+Projede graf yapısı komşuluk matrisi ile temsil edildiği için Graph modülünün alan karmaşıklığı `O(V²)` olarak değerlendirilir. Kruskal algoritması için ayrıca kenar listesi tutulduğu için kenar bilgileri `O(E)` alan kullanır.
+
+Genel olarak:
+
+| Bileşen          | Alan Karmaşıklığı | Açıklama                                          |
+| ---------------- | ----------------: | ------------------------------------------------- |
+| Adjacency Matrix |             O(V²) | Düğümler arası bağlantıları matris üzerinde tutar |
+| Edge List        |              O(E) | Kruskal algoritması için kenarları tutar          |
+| Queue            |              O(V) | BFS sırasında ziyaret edilecek düğümleri tutar    |
+| Stack            |              O(V) | DFS sırasında ziyaret edilecek düğümleri tutar    |
+| Union-Find       |              O(V) | Parent ve rank dizilerini tutar                   |
+
+---
+
 ## Derleme ve Çalıştırma
 
 Proje, C11 standardında yazılmış backend modülleri ve Python tabanlı görselleştirme arayüzü içermektedir. Backend tarafında CMake kullanılmıştır.
@@ -253,13 +276,13 @@ pip install -r requirements.txt
 python app.py
 ```
 
-Backend motoru ve frontend arayüzü birlikte çalıştırıldığında, kullanıcı graf üzerinde düğüm/kenar işlemlerini görüntüleyebilir ve MST sonucunu takip edebilir.
+Backend motoru ve frontend arayüzü birlikte çalıştırıldığında kullanıcı graf üzerinde düğüm/kenar işlemlerini görüntüleyebilir ve MST sonucunu takip edebilir.
 
 ---
 
 ## Docker ile Çalıştırma
 
-Docker yapılandırması, frontend, backend ve gerekli servislerin tek komutla çalıştırılmasını kolaylaştırmak için hazırlanmıştır.
+Docker yapılandırması, frontend ve backend bileşenlerinin bağımlılık sorunu yaşamadan tek komutla çalıştırılmasını sağlamak için hazırlanmıştır.
 
 Projenin kök dizininde aşağıdaki komut çalıştırılır:
 
@@ -267,15 +290,39 @@ Projenin kök dizininde aşağıdaki komut çalıştırılır:
 docker-compose up --build
 ```
 
-Docker çalıştırıldıktan sonra sistem bileşenleri ilgili servisler üzerinden ayağa kaldırılır.
+Bu komut ile:
 
-> Not: Docker yapılandırması teslim öncesi son kez kontrol edilerek gerekli servis portları ve çalışma komutları güncellenecektir.
+* Frontend servisi başlatılır.
+* Backend hesaplama motoru başlatılır.
+* Frontend ve backend arasında kullanılan ortak veri dosyaları erişilebilir hale gelir.
+* Kullanıcı arayüzü üzerinden MST hesaplama süreci takip edilebilir.
+
+Docker kullanımı sayesinde proje farklı bilgisayarlarda ek kurulum adımı gerektirmeden çalıştırılabilir.
+
+> Not: Projede ayrı bir AI servisi bulunmamaktadır. Docker yapısında temel olarak frontend ve backend servisleri yer almaktadır.
+
+---
+
+## JSON Tabanlı Veri Akışı
+
+Projede frontend ve backend arasındaki veri iletişimi JSON dosyaları ve flag sistemi üzerinden yapılmaktadır.
+
+Genel veri akışı:
+
+1. Kullanıcı arayüzde graf bilgisini oluşturur.
+2. Frontend, graf verisini `input_graph.json` dosyasına yazar.
+3. Frontend, backend’e hesaplama isteği göndermek için `calculate.flag` dosyasını oluşturur.
+4. Backend bu flag dosyasını izler.
+5. Flag dosyası oluştuğunda backend graf verisini okur.
+6. Kruskal algoritması çalıştırılır.
+7. MST sonucu `output_mst.json` dosyasına yazılır.
+8. Frontend sonucu okuyarak kullanıcıya gösterir.
+
+Bu yapı sayesinde frontend ve backend birbirinden ayrılmış, daha kontrollü ve modüler bir çalışma düzeni oluşturulmuştur.
 
 ---
 
 ## Örnek Veri Yapısı
-
-Proje, JSON tabanlı giriş ve çıkış verilerini destekleyecek şekilde tasarlanmıştır.
 
 Örnek giriş verisi:
 
@@ -333,6 +380,7 @@ Projede test ve doğrulama işlemleri aşağıdaki adımlarla yapılmıştır:
 * Union-Find ile döngü oluşumunun engellendiği doğrulanmıştır.
 * JSON giriş/çıkış yapısı örnek verilerle test edilmiştir.
 * UI tarafında graf ve MST görselleştirme çıktıları kontrol edilmiştir.
+* Docker ile sistemin tek komutla çalıştırılması kontrol edilmiştir.
 
 ---
 
@@ -346,6 +394,7 @@ Proje raporu `docs/` klasörü altında yer almaktadır. Raporda aşağıdaki ba
 * Algoritma açıklamaları
 * UML diyagramları
 * Big-O analizleri
+* Alan karmaşıklığı analizleri
 * AI prompt dökümleri
 * Test ve doğrulama sonuçları
 * Sonuç ve değerlendirme
@@ -360,30 +409,33 @@ Hazırlanan UML diyagramları:
 
 ---
 
-## Demo Videosu
+## Sunum ve Demo
 
-Demo videosu, tüm sistemin çalıştığını göstermek amacıyla hazırlanmıştır.
+Proje sunumu kapsamında sistemin genel amacı, kullanılan veri yapıları, algoritma akışı ve arayüz üzerinden MST hesaplama süreci gösterilecektir.
 
-Videoda aşağıdaki adımlar gösterilmektedir:
+Sunumda özellikle aşağıdaki noktalar ele alınacaktır:
 
-* Arayüzün çalıştırılması
-* Graf düğümlerinin ve kenarlarının gösterilmesi
-* Kruskal algoritmasının çalıştırılması
-* MST kenarlarının görselleştirilmesi
-* Dinamik veri değişimi sonrası MST’nin yeniden hesaplanması
-* Core veri yapılarının kod üzerinden kısa açıklaması
+* PCB bağlantı noktalarının graf düğümü olarak modellenmesi
+* Kenarların ağırlıklı bağlantı olarak temsil edilmesi
+* Graph, Queue, Stack ve Union-Find veri yapılarının projedeki kullanımı
+* BFS/DFS ile graf dolaşımı ve bağlılık kontrolü
+* Kruskal algoritması ile Minimum Spanning Tree oluşturulması
+* Frontend ve backend arasındaki JSON/flag tabanlı veri akışı
+* Docker ile sistemin tek komutla çalıştırılması
+
+Demo videosunda kullanıcı arayüzü üzerinden graf verisinin görüntülenmesi, MST hesaplama işleminin başlatılması ve elde edilen minimum maliyetli bağlantı ağının gösterilmesi hedeflenmektedir.
 
 Demo video linki:
 
 ```text
-Teslim öncesi eklenecektir.
+Teslim videosu eklenecektir.
 ```
 
 ---
 
 ## Proje Durumu
 
-Projenin temel veri yapıları, algoritma modülleri, GitHub iş akışı ve dokümantasyon yapısı tamamlanmıştır.
+Projenin temel veri yapıları, algoritma modülleri, GitHub iş akışı, Docker yapısı ve dokümantasyon yapısı tamamlanmıştır.
 
 Tamamlanan çalışmalar:
 
@@ -397,14 +449,16 @@ Tamamlanan çalışmalar:
 * Kruskal MST algoritması yazıldı.
 * JSON tabanlı örnek veri yapısı hazırlandı.
 * UI tarafında graf ve MST görselleştirme çalışmaları yapıldı.
+* Docker yapılandırması hazırlandı.
 * UML diyagramları hazırlandı.
 * Proje raporu oluşturuldu.
+* README dosyası teslim formatına uygun şekilde düzenlendi.
 
 Teslim öncesi son kontrol adımları:
 
-* Docker yapılandırmasının son kez test edilmesi
 * Demo videosu linkinin README’ye eklenmesi
-* Proje raporunun final PDF halinin docs klasörüne eklenmesi
+* Proje raporunun final PDF halinin `docs/` klasörüne eklenmesi
+* Docker komutunun son kez test edilmesi
 
 ---
 
