@@ -1,0 +1,24 @@
+# Python tabanli arayuz icin temel imaj
+FROM python:3.9-slim
+
+# Gelistirici bilgileri
+LABEL maintainer="azra_tashan"
+LABEL role="frontend_integration"
+LABEL version="1.0"
+
+# Calisma dizini
+WORKDIR /app
+
+# Bagimliliklarin kurulumu
+COPY ui/requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Kaynak kodlarin kopyalanmasi
+COPY . /app
+
+# Arayuz portu
+EXPOSE 8050
+
+# Uygulamanin baslatilmasi
+WORKDIR /app/ui
+CMD ["python3", "app.py"]
