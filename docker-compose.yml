@@ -5,7 +5,7 @@ services:
       dockerfile: docker/Dockerfile.backend
     container_name: pcb_backend_engine
     volumes:
-      - .:/app:z
+      - ./ui/shared_data:/app/ui/shared_data:z
 
   frontend:
     build:
