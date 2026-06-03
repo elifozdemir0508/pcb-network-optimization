@@ -29,6 +29,7 @@ app.layout = html.Div([
         html.Button('Yeni Düğüm Ekle', id='btn-dugum-ekle', n_clicks=0, style={'marginRight': '10px', 'padding': '8px', 'cursor': 'pointer'}),
         html.Button('Seçili 2 Düğümü Bağla', id='btn-kenar-ekle', n_clicks=0, style={'marginRight': '10px', 'padding': '8px', 'cursor': 'pointer'}),
         html.Button('Seçili Kenarı Sil', id='btn-kenar-sil', n_clicks=0, style={'marginRight': '10px', 'padding': '8px', 'backgroundColor': '#FF851B', 'color': 'white', 'cursor': 'pointer'}),
+        html.Button('Tümünü Bağla (Tam Graf)', id='btn-tumunu-bagla', n_clicks=0, style={'marginRight': '10px', 'padding': '8px', 'backgroundColor': '#B10DC9', 'color': 'white', 'cursor': 'pointer'}),
         html.Button('C Servisine Gönder (Hesapla)', id='btn-hesapla', n_clicks=0, style={'marginRight': '15px', 'padding': '8px', 'backgroundColor': '#2ECC40', 'color': 'white', 'fontWeight': 'bold', 'cursor': 'pointer'}),
         
         html.Div(id='sistem-mesaji', style={'marginTop': '15px', 'fontWeight': 'bold', 'color': '#333'}),
@@ -68,13 +69,14 @@ def kenar_agirliklarini_guncelle(elemanlar):
     Input('btn-dugum-ekle', 'n_clicks'),
     Input('btn-kenar-ekle', 'n_clicks'),
     Input('btn-kenar-sil', 'n_clicks'),
+    Input('btn-tumunu-bagla', 'n_clicks'),
     Input('btn-hesapla', 'n_clicks'),
     Input('dosya-dinleyici', 'n_intervals'),
     State('graf-ekrani', 'elements'),
     State('graf-ekrani', 'selectedNodeData'),
     State('graf-ekrani', 'selectedEdgeData')
 )
-def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik, mevcut_elemanlar, secili_dugumler, secili_kenarlar):
+def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_tumunu_bagla, btn_hesapla, interval_tetik, mevcut_elemanlar, secili_dugumler, secili_kenarlar):
     tetikleyen_olay = dash.ctx.triggered_id
     mesaj = "Sistem hazır. Shift tuşuna basılı tutarak birden fazla düğüm/kenar seçebilirsiniz."
     
@@ -95,7 +97,7 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
             n1_id, n2_id = secili_dugumler[0]['id'], secili_dugumler[1]['id']
             kenar_var = any('source' in e['data'] and ((e['data']['source'] == n1_id and e['data']['target'] == n2_id) or (e['data']['source'] == n2_id and e['data']['target'] == n1_id)) for e in mevcut_elemanlar)
             if kenar_var:
-                return mevcut_elemanlar, "Uyarı: Bu iki düğüm arasında zaten bir bağlantı var!"
+                return mevcut_elemanlar, "Uyarı: Bu iki düğüm arasında zaten bir bağlantı var."
 
             pos1, pos2 = None, None
             for e in mevcut_elemanlar:
@@ -121,6 +123,29 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
             mesaj = "Hata: Silmek için graf üzerinden bir kenar seçmelisiniz."
         return mevcut_elemanlar, mesaj
 
+    elif tetikleyen_olay == 'btn-tumunu-bagla':
+        dugumler = [e for e in mevcut_elemanlar if 'source' not in e['data']]
+        if len(dugumler) < 2:
+            return mevcut_elemanlar, "Hata: Bağlantı kurabilmek için en az 2 düğüm eklemelisiniz."
+        
+        yeni_elemanlar = dugumler.copy()
+        
+        for i in range(len(dugumler)):
+            for j in range(i + 1, len(dugumler)):
+                n1_id = dugumler[i]['data']['id']
+                n2_id = dugumler[j]['data']['id']
+                
+                pos1 = dugumler[i]['position']
+                pos2 = dugumler[j]['position']
+                mesafe = math.sqrt((pos2['x'] - pos1['x'])**2 + (pos2['y'] - pos1['y'])**2)
+                
+                yeni_kenar = {'data': {'source': n1_id, 'target': n2_id, 'weight': round(mesafe, 2)}}
+                yeni_elemanlar.append(yeni_kenar)
+        
+        olusan_kenar_sayisi = len(yeni_elemanlar) - len(dugumler)
+        mesaj = f"Tam Graf Oluşturuldu. {len(dugumler)} düğüm arasına toplam {olusan_kenar_sayisi} adet kenar çizildi."
+        return yeni_elemanlar, mesaj
+
     elif tetikleyen_olay == 'btn-hesapla':
         mevcut_elemanlar = kenar_agirliklarini_guncelle(mevcut_elemanlar)
         dugumler = [e for e in mevcut_elemanlar if 'source' not in e['data']]
@@ -141,7 +166,7 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
         for e in mevcut_elemanlar:
             e['classes'] = ''
 
-        mesaj = "Güncel graf koordinatları kaydedildi. C servisine hesaplama emri verildi..."
+        mesaj = "Güncel graf koordinatları kaydedildi. C servisine hesaplama emri verildi."
         return mevcut_elemanlar, mesaj
 
     elif tetikleyen_olay == 'dosya-dinleyici':
@@ -162,16 +187,14 @@ def arayuz_yoneticisi(btn_dugum, btn_kenar, btn_sil, btn_hesapla, interval_tetik
                             eleman['classes'] = '' 
 
                 maliyet = mst_verisi.get('response_meta', {}).get('total_cost', "Bilinmiyor")
-                mesaj = f"✅ MST Başarıyla Çizildi! Toplam Bağlantı Maliyeti: {maliyet}"
+                mesaj = f"MST Başarıyla Çizildi. Toplam Bağlantı Maliyeti: {maliyet}"
                 
                 os.remove(mst_dosyasi)
                 return mevcut_elemanlar, mesaj
                 
             except Exception as e:
-                # Dosya yazılırken okunmaya çalışılırsa patlamaması için güncellemeyi pas geç
                 raise PreventUpdate
         else:
-            # Dosya yoksa gereksiz yere ekranı yenileyip tıklamaları bozma
             raise PreventUpdate
             
     return mevcut_elemanlar, mesaj
