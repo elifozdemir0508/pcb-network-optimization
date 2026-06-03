@@ -428,7 +428,7 @@ Demo videosunda kullanıcı arayüzü üzerinden graf verisinin görüntülenmes
 Demo video linki:
 
 ```text
-Teslim videosu eklenecektir.
+https://drive.google.com/file/d/1blBZGRAs0hHGHob9XFrBDY2DLQd4JKaC/view?usp=sharing
 ```
 
 ---
