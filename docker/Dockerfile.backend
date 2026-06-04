@@ -1,0 +1,23 @@
+# C/C++ derleme ortami icin temel imaj
+FROM gcc:latest
+
+# Gelistirici ve modul bilgileri
+LABEL maintainer="azra_tashan"
+LABEL role="backend_integration"
+LABEL version="1.0"
+
+# CMake bagimliliklarinin yuklenmesi ve imaj boyutu optimizasyonu
+RUN apt-get update && apt-get install -y cmake && \
+    rm -rf /var/lib/apt/lists/*
+
+# Calisma dizininin ayarlanmasi
+WORKDIR /app
+
+# Kaynak kodlarin konteynere aktarilmasi
+COPY . /app
+
+# Projenin derlenmesi
+RUN cmake . && make
+
+# Calistirilacak ana komut
+CMD ["./PCBNetworkOptimization"]

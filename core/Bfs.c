@@ -43,7 +43,7 @@ void BFS_Calistir(int baslangic_dugumu, int** graf, int dugum_sayisi) {
         for (int i = 0; i < dugum_sayisi; i++) {
 
 
-            if (graf[anlik_dugum][i] == 1 && ziyaret_edildi[i] == 0) {
+            if (graf[anlik_dugum][i] == 0 && ziyaret_edildi[i] == 0) {
 
                 enqueue(kuyrugum, i);
                 ziyaret_edildi[i] = 1;

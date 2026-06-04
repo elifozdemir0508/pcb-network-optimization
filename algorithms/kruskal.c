@@ -4,6 +4,20 @@
 
 #include "../core/union_find.h"
 
+/**
+ * @brief Kenarları ağırlıklarına göre karşılaştırır. qsort için yardımcı fonksiyondur.
+ * 
+ * @param a: Karşılaştırılacak ilk kenar (Edge işaretçisi)
+ * @param b: Karşılaştırılacak ikinci kenar (Edge işaretçisi)
+ * 
+ * @retval -1: a'nın ağırlığı b'den küçükse
+ * @retval 1: a'nın ağırlığı b'den büyükse
+ * @retval 0: ağırlıklar eşitse
+ * 
+ * @author: Cafer Tura Çetin
+ * 
+ * @note: O(1) karmaşıklığına sahiptir. qsort tarafından çağrılır.
+ */
 static int compare_edges_by_weight(const void *a, const void *b) {
     const Edge *edge_a = (const Edge *)a;
     const Edge *edge_b = (const Edge *)b;
@@ -17,6 +31,17 @@ static int compare_edges_by_weight(const void *a, const void *b) {
     return 0;
 }
 
+/**
+ * @brief Kruskal algoritmasını kullanarak graf için Minimum Spanning Tree (MST) hesaplar.
+ * 
+ * @param graph: Üzerinde işlem yapılacak graf veri yapısı
+ * 
+ * @retval result: MST işleminin sonucunu (kenar sayısı, toplam ağırlık vb.) içeren yapı döndürülür.
+ * 
+ * @author: Cafer Tura Çetin
+ * 
+ * @note: O(E log E) karmaşıklığına sahiptir. Kenarlar qsort ile sıralanır ve döngü içinde union-find yapısı kullanılır.
+ */
 MSTResult kruskal_mst(const Graph *graph) {
     MSTResult result = {0};
 

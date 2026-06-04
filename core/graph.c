@@ -53,3 +53,26 @@ void printEdges(Graph *graph) {
                graph->edges[i].weight);
     }
 }
+/*
+ * Team member function wrappers
+ * Responsible Team Member: Elif Ozdemir
+ *
+ * These wrapper functions keep the original graph API unchanged
+ * while also including the responsible team member name in function names.
+ */
+
+void ElifOzdemir_initGraph(Graph *graph, int nodeCount) {
+    initGraph(graph, nodeCount);
+}
+
+void ElifOzdemir_addEdge(Graph *graph, int source, int target, int weight) {
+    addEdge(graph, source, target, weight);
+}
+
+void ElifOzdemir_printAdjacencyMatrix(Graph *graph) {
+    printAdjacencyMatrix(graph);
+}
+
+void ElifOzdemir_printEdges(Graph *graph) {
+    printEdges(graph);
+}

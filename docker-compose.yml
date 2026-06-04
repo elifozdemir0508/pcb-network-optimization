@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: pcb_backend_engine
+    volumes:
+      - ./ui/shared_data:/app/ui/shared_data:z
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: pcb_frontend_ui
+    ports:
+      - "8050:8050"
+    volumes:
+      - .:/app:z
+    depends_on:
+      - backend   
