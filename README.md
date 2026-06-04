@@ -407,6 +407,7 @@ Hazırlanan UML diyagramları:
 * Sequence Diagram
 * Component Diagram
 
+Teslim raporu: [Proje Teslim Raporu](https://drive.google.com/file/d/11TxMT-Hmre03BCa9V1XXBzqKBMeqlJlY/view?usp=sharing)
 ---
 
 ## Sunum ve Demo
