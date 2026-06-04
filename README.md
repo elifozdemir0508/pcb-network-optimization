@@ -331,8 +331,8 @@ Bu yapı sayesinde frontend ve backend birbirinden ayrılmış, daha kontrollü 
   "request_meta": {
     "algorithm": "kruskal",
     "action": "calculate_mst",
-    "node_count": 5,
-    "edge_count": 7
+    "node_count": 3,
+    "edge_count": 3
   },
   "nodes": [
     {"id": 0, "x": 100, "y": 200},
