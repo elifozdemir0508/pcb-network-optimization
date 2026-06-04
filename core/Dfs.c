@@ -3,6 +3,19 @@
 #include "Dfs.h"
 #include "Stack.h"
 
+
+
+/**
+ * @brief İteratif Derinlemesine Arama (DFS) algoritması ile grafı tarar ve ulaşılan düğüm sayısını bulur.
+ * * @param baslangic_dugumu: Aramanın başlatılacağı kök düğümün indeksi.
+ * @param graf: Düğümler ve komşuluk matrisini içeren devrenin graf modeli.
+ * * @retval -1: Geçersiz parametre, boş graf veya bellek tahsisi hatası durumunda.
+ * @retval ulasilan_parca_sayisi: Kesintisiz ulaşılan (birbirine fiziksel olarak bağlı) toplam pin sayısı.
+ * * @author Niyazi Han Akbulut
+ * * @note Yığın taşmasını (Stack Overflow) önlemek için özyineleme (recursion) yerine
+ * LIFO prensibiyle çalışan Stack veri yapısı (iteratif model) kullanılmıştır.
+ */
+
 int DFS_Calistir(int baslangic_dugumu, Graph* graf) {
 
 
@@ -22,6 +35,7 @@ int DFS_Calistir(int baslangic_dugumu, Graph* graf) {
 
     while (!bosmu(yigitim)) {
         int anlik_dugum = pop(yigitim);
+
 
         if (ziyaret_edildi[anlik_dugum] == 0) {
             ziyaret_edildi[anlik_dugum] = 1;
