@@ -354,14 +354,13 @@ Bu yapı sayesinde frontend ve backend birbirinden ayrılmış, daha kontrollü 
   "response_meta": {
     "status": "success",
     "algorithm_used": "kruskal",
-    "total_cost": 1123,
+    "total_cost": 500,
     "is_connected": true
   },
   "mst_edges": [
-    {"source": 1, "target": 3, "weight": 180},
-    {"source": 1, "target": 4, "weight": 223},
-    {"source": 0, "target": 3, "weight": 316},
-    {"source": 0, "target": 2, "weight": 403}
+    {"source": 1, "target": 2, "weight": 180},
+    {"source": 0, "target": 1, "weight": 320},
+    
   ]
 }
 ```
