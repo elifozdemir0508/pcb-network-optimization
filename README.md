@@ -401,10 +401,16 @@ Proje raporu `docs/` klasörü altında yer almaktadır. Raporda aşağıdaki ba
 Hazırlanan UML diyagramları:
 
 * Use Case Diagram
+![USE CASE DİAGRAMI](docs/8.6-use-case-diyagramı.png)
 * Class Diagram
+![Kruskal graph union-find sınıf diyagramı](docs/8.5-kruskal-graph-unionfind-diyagramı.png)
+![bfs dfs connectedness diyagramı](docs/8.4-bfs-dfs-connectedness-diyagramı.png)
 * Activity Diagram
+![Activity Diagram](docs/8.3-aktiivite-diyagramı.png)
 * Sequence Diagram
+![Sequence Diagram](docs/8.2-sequence-diyagramı.png)
 * Component Diagram
+![Component Diagram](docs/8.1-component-diyagramı.png)
 
 Teslim raporu: [Proje Teslim Raporu](https://drive.google.com/file/d/11TxMT-Hmre03BCa9V1XXBzqKBMeqlJlY/view?usp=sharing)
 ---
